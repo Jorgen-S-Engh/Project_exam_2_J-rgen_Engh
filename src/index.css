@@ -4,8 +4,12 @@
   font-family: "Lato", sans-serif;
   box-sizing: border-box;
 
+  /* colors */
   --main-color-green:#04BFBF;
+  --main-color-green-hover: #00a3a3;
   --text-color-white: #FBFBFB;
+  --background-color-white: #F5F5F5;
+  --main-color-gray: #9E9E9E;
 
 }
 
