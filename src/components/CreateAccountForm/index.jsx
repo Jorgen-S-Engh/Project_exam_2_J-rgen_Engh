@@ -2,10 +2,16 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import styles from "./LoginForm.module.scss";
+import styles from "./CreateAccountForm.module.scss";
 
 const schema =yup
   .object({
+    name: yup
+    .string()
+    .min(2, "Name can not be less than 2 characters")
+    .max(25, "Name can not be more than 25 characters")
+    .typeError("Please type a character")
+    .required("Please enter your name"),
     email: yup
     .string()
     .email()
@@ -21,7 +27,7 @@ const schema =yup
 }).required();
 
 
-function LoginForm() {
+function CreateAccountForm() {
 
     const {
       register,
@@ -54,23 +60,24 @@ function LoginForm() {
   return (
     <>
       <div className={styles.form_container}>
-        <h2 className={styles.h2}>Login</h2>
+        <h2 className={styles.h2}>Create Account</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <input className={styles.input} {...register('email')} placeholder='Email'/>
+          <input {...register("name")} placeholder='Name'/>
+          <input className={styles.input} {...register('email')} placeholder='Email' />
           <p>{errors.email?.message}</p>
-          <input className={styles.input} {...register('password')} placeholder='Password'/>
+          <input type="password" className={styles.input} {...register('password')} placeholder="Password"/>
           <p>{errors.password?.message}</p>
-          <input className={styles.btn_submit} type="submit" value="Login" />
+          <input className={styles.btn_submit} type="submit" value="Create Account" />
         </form>
         <div className={styles.mid_section}>
           <h3>Or</h3>
           <hr/>
         </div>
-          <button className={styles.btn_submit}>Create account</button>
+          <button className={styles.btn_submit}>Back to login</button>
       </div>
     </>
 
   )
 }
 
-export default LoginForm
+export default CreateAccountForm
