@@ -1,10 +1,10 @@
 import styles from "./SuccessMessage.module.scss";
 
 
-function SuccessMessage() {
+function SuccessMessage({message}) {
   return (
     <div className={styles.success_message}>
-      Account created successfully! Redirecting to login
+    {message}
     </div>
   );
 }

@@ -27,7 +27,8 @@ const schema =yup
 
 
 function LoginForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [customError, setCustomError] = useState('');
 
   const {
     register,
@@ -49,13 +50,13 @@ function LoginForm() {
         },
         body: JSON.stringify(data),
       });
-      console.log(JSON.stringify(data))
+      const json = await response.json();
 
       const handleSuccess = () => {
         setSuccess(true);
         setTimeout(() => {
-          navigate('/login');
-        }, 2500); 
+          navigate('/');
+        }, 1500); 
       };
 
       const handleError = () =>{
@@ -66,21 +67,16 @@ function LoginForm() {
       }
 
       if(response.status === 200){
-        const json = await response.json();
-        console.log(json);
-        localStorage.setItem("accessToken", data.accessToken)
+        localStorage.setItem("accessToken", json.accessToken)
         handleSuccess()
       }else{
+        setCustomError(json.errors[0].message)
         handleError();
       }
-
-      
-      
     }
     catch(e){
       console.log(e)
     }
-
   }
 
   const emailLocal = localStorage.getItem('email') 
@@ -96,8 +92,8 @@ function LoginForm() {
           <input type="password" className={styles.input} {...register('password')} defaultValue={passwordLocal? passwordLocal : "" } placeholder='Password'/>
           <p>{errors.password?.message}</p>
           <input className={styles.btn_submit} type="submit" value="Login" />
-          {apiError ? <ErrorMessage/> : ""}
-          {success ? <SuccessMessage/>: ""}
+          {apiError ? <ErrorMessage message={customError}/> : ""}
+          {success ? <SuccessMessage message={"Login Successfull!"}/>: ""}
         </form>
         <div className={styles.mid_section}>
           <h3>Or</h3>

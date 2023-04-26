@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from "./ErrorMessage.module.scss";
 
-function ErrorMessage() {
+function ErrorMessage({message}) {
   return (
-    <div className={styles.error_message}>Something went wrong, please try again</div>
+    <div className={styles.error_message}>The following Error occured: {message}</div>
   )
 }
 

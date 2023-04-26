@@ -38,6 +38,8 @@ const schema = yup
 function CreateAccountForm() {
 
   const navigate = useNavigate()
+  const [customError, setCustomError] = useState('');
+  
 
   const {
     register,
@@ -62,7 +64,8 @@ function CreateAccountForm() {
         },
         body: JSON.stringify(data),
       });
-      console.log(response)
+      const json = await response.json();
+
 
       const handleSuccess = () => {
         setSuccess(true);
@@ -73,8 +76,6 @@ function CreateAccountForm() {
 
 
       if(response.status === 201){
-        const json = await response.json();
-        console.log(json);
         localStorage.setItem("name", data.name);
         localStorage.setItem("email", data.email);
         localStorage.setItem("avatar", data.avatar);
@@ -82,11 +83,10 @@ function CreateAccountForm() {
         localStorage.setItem("password", data.password);
         handleSuccess();
 
-
       }else{
         {
+          setCustomError(json.errors[0].message)
           setApiError(true);
-  
           setTimeout(() =>{
             setApiError(false)
           }, 5000)
@@ -122,8 +122,8 @@ function CreateAccountForm() {
             <input type="checkbox" id="venue_manager" {...register("venueManager")} value={true}/>
             <label htmlFor="venue_manager">I want to be a venue manager</label>
           </div>
-          {apiError ? <ErrorMessage/> : ""}
-          {success ? <SuccessMessage /> : ""}
+          {apiError ? <ErrorMessage message={customError}/> : ""}
+          {success ? <SuccessMessage message={"Account created successfully! Redirecting to login"}/> : ""}
 
           <input className={styles.btn_submit} type="submit" value="Create Account" />
 

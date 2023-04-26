@@ -2,7 +2,7 @@
   display:flex;
   justify-content: space-between;
   align-items: center;
-  height:100px;
+  height:80px;
   width:100%;
   background: #EFEFEF;
   box-shadow: 5px 0px 4px rgba(0, 0, 0, 0.25);
@@ -22,8 +22,6 @@
   display:flex;
   justify-content: center;
   margin: 0px 10px;
-
-
 }
 
 .profile_img {
@@ -32,11 +30,22 @@
   height: 100%;
   border:solid white 1px;
   border-radius: 50%;
+  cursor: pointer;
   transition: border-color 0.3s ease;
 
   &:hover{
-    border: solid #04BFBF 1.5px;
+    border: solid var(--main-color-green-hover) 1.5px;
   }
 }
+
+.search_input {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 6px 12px;
+  font-size: 14px;
+  max-width: 300px;
+  margin-bottom:0px;
+}
+
 
 
