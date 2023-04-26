@@ -27,7 +27,8 @@ body{
   width: 80%;
 }
 
-.input {
+
+input {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -45,6 +46,7 @@ body{
 p {
   font-size: 0.875rem;
   color: #dc3545;
+  margin:0px;
   margin-bottom: 1rem;
 }
 
@@ -73,7 +75,6 @@ p {
 }
 
 
-
 .mid_section{
   width: 80%;
 
@@ -92,6 +93,28 @@ p {
     font-size: 1rem;
   }
 }
+
+
+// .error_message{
+//   display:flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #dc3545;
+//   color:var(--text-color-white);
+//   font-weight: bold;
+//   text-align: center;
+//   // font-size: 1.2rem;
+//   border-radius: 10px;
+//   height: 200px;
+
+// }
+
+
+
+
+
+
+
 
 
 

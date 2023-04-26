@@ -3,56 +3,104 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styles from "./CreateAccountForm.module.scss";
+import { useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
+import ErrorMessage from '../ErrorMessage';
+import SuccessMessage from '../SuccessMessage';
 
-const schema =yup
+
+const schema = yup
   .object({
     name: yup
-    .string()
-    .min(2, "Name can not be less than 2 characters")
-    .max(25, "Name can not be more than 25 characters")
-    .typeError("Please type a character")
-    .required("Please enter your name"),
+      .string()
+      .min(2, "Name can not be less than 2 characters")
+      .max(25, "Name can not be more than 25 characters")
+      .typeError("Please type a character")
+      .required("Please enter your name"),
     email: yup
-    .string()
-    .email()
-    .typeError("Please enter a valid email")
-    .required("Please enter a valid email"),
+      .string()
+      .matches(
+        /^[\w\-.]+@stud\.noroff\.no$/,
+        "Email must match pattern: example@stud.noroff.no"
+      )
+      .required("Please enter a valid email"),
     password: yup
-    .string()
-    .required('No password provided.') 
-    .min(8, 'Password is too short - should be 8 chars minimum.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
-
+      .string()
+      .required("No password provided.")
+      .min(8, "Password is too short - should be 8 characters minimum.")
+      .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    avatar: yup
+      .string(),
 
 }).required();
 
 
 function CreateAccountForm() {
 
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
-    });
+  const navigate = useNavigate()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
 
   async function onSubmit(data){
+    setApiError(false); 
+    data.venueManager = data.venueManager==="true";
+    console.log(data)
     try{
-      const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/login', {
+      const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
+      console.log(response)
+
+      const handleSuccess = () => {
+        setSuccess(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2500); 
+      };
+
+
+      if(response.status === 201){
+        const json = await response.json();
+        console.log(json);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("avatar", data.avatar);
+        localStorage.setItem("venueManager", data.venueManager);
+        localStorage.setItem("password", data.password);
+        handleSuccess();
+
+
+      }else{
+        {
+          setApiError(true);
+  
+          setTimeout(() =>{
+            setApiError(false)
+          }, 5000)
+          return;
+        }
+      }
       console.log(JSON.stringify(data))
 
-      const json = await response.json();
-      console.log(json);
+      
+
     }
     catch(e){
       console.log(e)
+      setApiError(true);
     }
 
   }
@@ -63,17 +111,28 @@ function CreateAccountForm() {
         <h2 className={styles.h2}>Create Account</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <input {...register("name")} placeholder='Name'/>
-          <input className={styles.input} {...register('email')} placeholder='Email' />
+          <p>{errors.name?.message}</p>
+          <input {...register('email')} placeholder='Email' />
           <p>{errors.email?.message}</p>
-          <input type="password" className={styles.input} {...register('password')} placeholder="Password"/>
+          <input type="password" {...register('password')} placeholder="Password"/>
           <p>{errors.password?.message}</p>
+          <input {...register('avatar')} placeholder="Avatar"/>
+          <p>{errors.avatar?.message}</p>
+          <div className={styles.venue_manager}>
+            <input type="checkbox" id="venue_manager" {...register("venueManager")} value={true}/>
+            <label htmlFor="venue_manager">I want to be a venue manager</label>
+          </div>
+          {apiError ? <ErrorMessage/> : ""}
+          {success ? <SuccessMessage /> : ""}
+
           <input className={styles.btn_submit} type="submit" value="Create Account" />
+
         </form>
         <div className={styles.mid_section}>
           <h3>Or</h3>
           <hr/>
         </div>
-          <button className={styles.btn_submit}>Back to login</button>
+          <button className={styles.btn_submit} onClick={(()=> navigate("/login"))}>Back to login</button>
       </div>
     </>
 
@@ -81,3 +140,5 @@ function CreateAccountForm() {
 }
 
 export default CreateAccountForm
+
+

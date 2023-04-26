@@ -3,6 +3,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styles from "./LoginForm.module.scss";
+import { useNavigate  } from 'react-router-dom';
+import { useState } from 'react';
+import ErrorMessage from '../ErrorMessage';
+import SuccessMessage from '../SuccessMessage';
+
 
 const schema =yup
   .object({
@@ -22,14 +27,18 @@ const schema =yup
 
 
 function LoginForm() {
+  const navigate = useNavigate()
 
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
 
   async function onSubmit(data){
     try{
@@ -42,8 +51,31 @@ function LoginForm() {
       });
       console.log(JSON.stringify(data))
 
-      const json = await response.json();
-      console.log(json);
+      const handleSuccess = () => {
+        setSuccess(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2500); 
+      };
+
+      const handleError = () =>{
+        setApiError(true);
+        setTimeout(() =>{
+          setApiError(false)
+        },5000)
+      }
+
+      if(response.status === 200){
+        const json = await response.json();
+        console.log(json);
+        localStorage.setItem("accessToken", data.accessToken)
+        handleSuccess()
+      }else{
+        handleError();
+      }
+
+      
+      
     }
     catch(e){
       console.log(e)
@@ -51,22 +83,27 @@ function LoginForm() {
 
   }
 
+  const emailLocal = localStorage.getItem('email') 
+  const passwordLocal = localStorage.getItem('password')
+
   return (
     <>
       <div className={styles.form_container}>
         <h2 className={styles.h2}>Login</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <input className={styles.input} {...register('email')} placeholder='Email'/>
+          <input className={styles.input} {...register('email')} defaultValue={emailLocal? emailLocal : "" } placeholder='Email'/>
           <p>{errors.email?.message}</p>
-          <input className={styles.input} {...register('password')} placeholder='Password'/>
+          <input type="password" className={styles.input} {...register('password')} defaultValue={passwordLocal? passwordLocal : "" } placeholder='Password'/>
           <p>{errors.password?.message}</p>
           <input className={styles.btn_submit} type="submit" value="Login" />
+          {apiError ? <ErrorMessage/> : ""}
+          {success ? <SuccessMessage/>: ""}
         </form>
         <div className={styles.mid_section}>
           <h3>Or</h3>
           <hr/>
         </div>
-          <button className={styles.btn_submit}>Create account</button>
+          <button className={styles.btn_submit} onClick={(()=> navigate("/create-account"))}>Create account</button>
       </div>
     </>
 
