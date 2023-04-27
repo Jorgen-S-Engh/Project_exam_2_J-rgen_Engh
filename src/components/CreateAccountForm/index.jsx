@@ -95,8 +95,6 @@ function CreateAccountForm() {
       }
       console.log(JSON.stringify(data))
 
-      
-
     }
     catch(e){
       console.log(e)
@@ -122,9 +120,10 @@ function CreateAccountForm() {
             <input type="checkbox" id="venue_manager" {...register("venueManager")} value={true}/>
             <label htmlFor="venue_manager">I want to be a venue manager</label>
           </div>
-          {apiError ? <ErrorMessage message={customError}/> : ""}
-          {success ? <SuccessMessage message={"Account created successfully! Redirecting to login"}/> : ""}
-
+          <div className={styles.message_container}>
+            {apiError && <ErrorMessage message={customError}/>}
+            {success && <SuccessMessage message={"Account created successfully! Redirecting to login"}/>}
+          </div>
           <input className={styles.btn_submit} type="submit" value="Create Account" />
 
         </form>

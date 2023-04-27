@@ -92,8 +92,11 @@ function LoginForm() {
           <input type="password" className={styles.input} {...register('password')} defaultValue={passwordLocal? passwordLocal : "" } placeholder='Password'/>
           <p>{errors.password?.message}</p>
           <input className={styles.btn_submit} type="submit" value="Login" />
-          {apiError ? <ErrorMessage message={customError}/> : ""}
-          {success ? <SuccessMessage message={"Login Successfull!"}/>: ""}
+
+          <div className={styles.message_container}>
+            {apiError && <ErrorMessage message={customError}/>}
+            {success && <SuccessMessage message={"Login Successfull!"}/>}
+          </div>
         </form>
         <div className={styles.mid_section}>
           <h3>Or</h3>

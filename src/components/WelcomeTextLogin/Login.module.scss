@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // height:100vh;
   background-color: var(--main-color-green)
 
 }
@@ -17,6 +16,7 @@
 }
 
 .welcome_text{
+  margin: 0px 10px;
 
   *{
     color:var(--text-color-white);
