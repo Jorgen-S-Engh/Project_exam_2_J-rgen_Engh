@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { profileRequest, profileSuccess, profileFailure } from "../../features/profile/profileSlice";
 import { useNavigate } from "react-router-dom";
+// import MyCalendar from "../Calendar";
 
 
 
@@ -76,6 +77,7 @@ function ProfileInfo() {
         <h3>No. Bookings {bookings}</h3>
         {data.venueManager && <h3>Venue Manager</h3>}
       </div>
+      {/* <MyCalendar/> */}
     </div>
   );
 }
