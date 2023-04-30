@@ -28,7 +28,7 @@ function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.logo_container}>
-        <img src={logo} alt="Logo" />
+        <img src={logo} alt="Logo" onClick={(()=> navigate("/"))}/>
       </div>
       <div className={styles.search}>
         <input

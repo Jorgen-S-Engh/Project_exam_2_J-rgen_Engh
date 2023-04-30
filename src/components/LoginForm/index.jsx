@@ -54,6 +54,8 @@ function LoginForm() {
 
       const handleSuccess = () => {
         setSuccess(true);
+        console.log(json)
+
         setTimeout(() => {
           navigate('/');
         }, 1500); 
@@ -67,6 +69,10 @@ function LoginForm() {
       }
 
       if(response.status === 200){
+        localStorage.setItem("name", json.name);
+        localStorage.setItem("email", json.email);
+        localStorage.setItem("avatar", json.avatar);
+        localStorage.setItem("venueManager", json.venueManager);
         localStorage.setItem("accessToken", json.accessToken)
         handleSuccess()
       }else{
