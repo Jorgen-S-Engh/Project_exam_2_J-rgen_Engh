@@ -6,21 +6,24 @@ import { useNavigate } from "react-router-dom";
 import useProfileData from "../ProfileData";
 
 
-
 function ProfileInfo() {
   const navigate = useNavigate();
   const { data, status, error } = useSelector((state) => state.profile);
   const profileData = useProfileData();
 
   const bookings = profileData ? profileData._count.bookings : null;
-  const venues = profileData ? profileData.venues : null;
+  const venues = profileData ? profileData.venues : 0;
   const bookingsArray = profileData ? profileData.bookings : 0;
-  console.log(bookingsArray)
   
+  console.log(venues)
+  if(venues){
+    console.log("venues is true")
+  }else{
+    console.log("venues is false")
+  }
 
   const accessToken = localStorage.getItem("accessToken");
   const name = localStorage.getItem("name");
-
 
   useEffect(() => {
     if (data) {
@@ -75,13 +78,14 @@ function ProfileInfo() {
             <p>Date From: {booking.dateFrom}</p>
             <p>Date To: {booking.dateTo}</p>
             <p>Guests: {booking.guests}</p>
-            <img src={booking.venue.media} alt="" />
+            <img src={booking.venue.media} alt={booking.venue.name} />
           </div>
         ))
       ): (
         <p>No Bookings</p>
       )}
-      {data.venueManager ? (
+      {venues.length > 0 ?  <h3>Your Venues</h3> : <h3>You have no venues yet</h3>}
+      {data.venueManager && venues ? (
         venues.map((venues) =>(
           <div key={venues.id}>
             <h4>{venues.name}</h4>
