@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useProfileData from "../ProfileData";
+// import BookingInfo from "../BookingInfo";
 
 
 function ProfileInfo() {
@@ -11,9 +12,9 @@ function ProfileInfo() {
   const { data, status, error } = useSelector((state) => state.profile);
   const profileData = useProfileData();
 
-  const bookings = profileData ? profileData._count.bookings : null;
-  const venues = profileData ? profileData.venues : 0;
-  const bookingsArray = profileData ? profileData.bookings : 0;
+  const bookings = profileData && profileData._count ? profileData._count.bookings : null;
+  const venues = profileData && profileData.venues ? profileData.venues : 0;
+  const bookingsArray = profileData && profileData.bookings ? profileData.bookings : 0;
   
   console.log(venues)
   if(venues){
@@ -70,39 +71,41 @@ function ProfileInfo() {
         </div>
         
       </div>
-      <h3>Bookings</h3>
-      {bookingsArray.length > 0 ? (
-        bookingsArray.map((booking) =>(
-          <div key={booking.id}>
-            <p>Date From: {booking.venue.name}</p>
-            <p>Date From: {booking.dateFrom}</p>
-            <p>Date To: {booking.dateTo}</p>
-            <p>Guests: {booking.guests}</p>
-            <img src={booking.venue.media} alt={booking.venue.name} />
-          </div>
-        ))
-      ): (
-        <p>No Bookings</p>
-      )}
-      {venues.length > 0 ?  <h3>Your Venues</h3> : <h3>You have no venues yet</h3>}
-      {data.venueManager && venues ? (
-        venues.map((venues) =>(
-          <div key={venues.id}>
-            <h4>{venues.name}</h4>
-            <p>{venues.description}</p>
-            <div className={styles.venue_media}>
-              <img className={styles.venue_media__img} src={venues.media}></img>
-            </div>
+      <div className={styles.bookings_venues}>
+        <h3>Bookings</h3>
+        <div className={styles.booking_container}>
+          {bookingsArray.length > 0 ? (
+            bookingsArray.map((booking) => (
+              <div key={booking.id} className={styles.booking_card}>
+                <h4>{booking.venue.name}</h4>
+                <p>Date From: {booking.dateFrom}</p>
+                <p>Date To: {booking.dateTo}</p>
+                <p>Guests: {booking.guests}</p>
+                <img className={styles.booking_image} src={booking.venue.media} alt={booking.venue.name} />
+              </div>
+            ))
+          ) : (
+            <p>No Bookings</p>
+          )}
+        </div>
+        {venues.length > 0 ? <h3>Your Venues</h3> : <h3>You have no venues yet</h3>}
+        <div className={styles.venue_container}>
+          {data.venueManager && venues ? (
+            venues.map((venue) => (
+              <div key={venue.id} className={styles.venue_card}>
+                <h4>{venue.name}</h4>
+                <p>{venue.description}</p>
+                <img className={styles.venue_image} src={venue.media} alt={venue.name} />
+                <button className={`${styles.btn}`}>View and edit</button>
+              </div>
+            ))
+          ) : (
+            <p>No Venues</p>
+          )}
+        </div>
+      </div>
 
-          </div>
-        ))
-      ): (
-        <p>No Bookings</p>
-      )}
 
-
-
-    
     </>
 
   );

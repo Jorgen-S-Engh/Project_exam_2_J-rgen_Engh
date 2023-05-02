@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { profileRequest, profileSuccess, profileFailure } from "../../features/profile/profileSlice";
 
-//useAuth kit
-
 function useProfileData() {
-  const [profileData, setProfileData] = useState();
+  const [profileData, setProfileData] = useState({});
   const dispatch = useDispatch();
 
   const accessToken = localStorage.getItem("accessToken");
@@ -26,6 +24,8 @@ function useProfileData() {
         setProfileData(json);
       } catch (e) {
         dispatch(profileFailure(e.message));
+        //Settes til empty object i tillfelle feil
+        setProfileData({}); 
       }
     }
 
@@ -34,6 +34,5 @@ function useProfileData() {
 
   return profileData;
 }
-
 
 export default useProfileData;
