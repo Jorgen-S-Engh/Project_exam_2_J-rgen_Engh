@@ -6,7 +6,7 @@ import { profileRequest, profileSuccess, profileFailure } from "../../features/p
 //useAuth kit
 
 function useProfileData() {
-  const [bookings, setBookings] = useState();
+  const [profileData, setProfileData] = useState();
   const dispatch = useDispatch();
 
   const accessToken = localStorage.getItem("accessToken");
@@ -23,7 +23,7 @@ function useProfileData() {
         });
         const json = await response.json();
         dispatch(profileSuccess(json));
-        setBookings(json._count.bookings);
+        setProfileData(json);
       } catch (e) {
         dispatch(profileFailure(e.message));
       }
@@ -32,7 +32,8 @@ function useProfileData() {
     fetchData();
   }, [dispatch]);
 
-  return bookings;
+  return profileData;
 }
+
 
 export default useProfileData;

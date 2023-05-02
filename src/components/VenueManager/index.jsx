@@ -8,7 +8,7 @@ function VenueManager() {
 
 
   return (
-    <div>VenueManager</div>
+    <div></div>
   )
 }
 

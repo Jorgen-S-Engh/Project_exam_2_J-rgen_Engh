@@ -3,40 +3,24 @@ import profile from "../../assets/test_profile.jpg";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import MyCalendar from "../Calendar";
 import useProfileData from "../ProfileData";
-// import VenueManager from "../VenueManager";
+
 
 
 function ProfileInfo() {
   const navigate = useNavigate();
   const { data, status, error } = useSelector((state) => state.profile);
-  const bookings = useProfileData();
+  const profileData = useProfileData();
+
+  const bookings = profileData ? profileData._count.bookings : null;
+  const venues = profileData ? profileData.venues : null;
+  const bookingsArray = profileData ? profileData.bookings : 0;
+  console.log(bookingsArray)
+  
 
   const accessToken = localStorage.getItem("accessToken");
   const name = localStorage.getItem("name");
 
-  // async function getData() {
-  //   try {
-  //     dispatch(profileRequest());
-  //     const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/profiles/${name}?_bookings=true&_venues=true`, {
-  //       headers: {
-  //         'Authorization': `Bearer ${accessToken}`,
-  //       },
-  //     });
-  //     const json = await response.json();
-  //     dispatch(profileSuccess(json));
-  //     setBookings(json._count.bookings)
-  //     console.log(data)
-      
-  //   } catch (e) {
-  //     dispatch(profileFailure(e.message));
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   useProfileData();
-  // }, [dispatch]);
 
   useEffect(() => {
     if (data) {
@@ -51,7 +35,6 @@ function ProfileInfo() {
   if (status === "failed") {
     return <div>Error: {error}</div>;
   }
-
 
   function logOut(){
     navigate("/login");
@@ -82,10 +65,39 @@ function ProfileInfo() {
           <h3>No. Bookings {bookings}</h3>
           {data.venueManager && <h3>Venue Manager</h3>}
         </div>
-        {/* <MyCalendar/> */}
         
       </div>
-      {/* <VenueManager/> */}
+      <h3>Bookings</h3>
+      {bookingsArray.length > 0 ? (
+        bookingsArray.map((booking) =>(
+          <div key={booking.id}>
+            <p>Date From: {booking.venue.name}</p>
+            <p>Date From: {booking.dateFrom}</p>
+            <p>Date To: {booking.dateTo}</p>
+            <p>Guests: {booking.guests}</p>
+            <img src={booking.venue.media} alt="" />
+          </div>
+        ))
+      ): (
+        <p>No Bookings</p>
+      )}
+      {data.venueManager ? (
+        venues.map((venues) =>(
+          <div key={venues.id}>
+            <h4>{venues.name}</h4>
+            <p>{venues.description}</p>
+            <div className={styles.venue_media}>
+              <img className={styles.venue_media__img} src={venues.media}></img>
+            </div>
+
+          </div>
+        ))
+      ): (
+        <p>No Bookings</p>
+      )}
+
+
+
     
     </>
 
