@@ -4,10 +4,26 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useProfileData from "../ProfileData";
-// import BookingInfo from "../BookingInfo";
+import EditModal from "../Modals/EditModal";
+import NewModal from "../Modals/NewModal";
 
 
 function ProfileInfo() {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showNewModal, setShowNewModal] = useState(false);
+
+  const [selectedVenueId, setSelectedVenueId] = useState(null);
+
+
+  const handleVenueClick = (venueId) => {
+    setSelectedVenueId(venueId);
+  };
+  
+
+  const closeModal = () => {
+    setSelectedVenueId(null);
+  };
+  
   const navigate = useNavigate();
   const { data, status, error } = useSelector((state) => state.profile);
   const profileData = useProfileData();
@@ -15,14 +31,24 @@ function ProfileInfo() {
   const bookings = profileData && profileData._count ? profileData._count.bookings : null;
   const venues = profileData && profileData.venues ? profileData.venues : 0;
   const bookingsArray = profileData && profileData.bookings ? profileData.bookings : 0;
-  
-  console.log(venues)
-  if(venues){
-    console.log("venues is true")
-  }else{
-    console.log("venues is false")
-  }
 
+  const handleEditModal = () => {
+    setShowEditModal(true);
+  };
+  
+  const closeEditModal = () => {
+    setShowEditModal(false);
+  };
+  
+  const handleNewModal = () => {
+    setShowNewModal(true);
+  };
+  
+  const closeNewModal = () => {
+    setShowNewModal(false);
+  };
+  
+  
   const accessToken = localStorage.getItem("accessToken");
   const name = localStorage.getItem("name");
 
@@ -61,6 +87,7 @@ function ProfileInfo() {
               Change Avatar
             </button>
             <button className={`${styles.btn} ${styles.btn_log_out}`} onClick={() => logOut()}>Log out</button>
+            <button className={`${styles.btn}`} onClick={handleNewModal}>Add a new Venue</button>
           </div>
         </div>
         <div className={styles.info_column}>
@@ -69,7 +96,6 @@ function ProfileInfo() {
           <h3>No. Bookings {bookings}</h3>
           {data.venueManager && <h3>Venue Manager</h3>}
         </div>
-        
       </div>
       <div className={styles.bookings_venues}>
         <h3>Bookings</h3>
@@ -92,11 +118,13 @@ function ProfileInfo() {
         <div className={styles.venue_container}>
           {data.venueManager && venues ? (
             venues.map((venue) => (
-              <div key={venue.id} className={styles.venue_card}>
+              <div
+                key={venue.id}
+                className={styles.venue_card}
+                onClick={() => handleVenueClick(venue.id)}
+              >
                 <h4>{venue.name}</h4>
-                <p>{venue.description}</p>
                 <img className={styles.venue_image} src={venue.media} alt={venue.name} />
-                <button className={`${styles.btn}`}>View and edit</button>
               </div>
             ))
           ) : (
@@ -104,11 +132,19 @@ function ProfileInfo() {
           )}
         </div>
       </div>
-
-
+      <EditModal
+        show={selectedVenueId !== null}
+        onClose={closeModal}
+        venueId={selectedVenueId}
+      >
+        {/* ... */}
+      </EditModal>
+  
+      <NewModal show={showNewModal} onClose={closeNewModal}>
+        <h4>New Venue</h4>
+      </NewModal>
     </>
-
-  );
+);
 }
-
+  
 export default ProfileInfo;
