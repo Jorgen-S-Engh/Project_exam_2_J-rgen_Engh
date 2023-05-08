@@ -2,8 +2,6 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useState } from 'react';
-import { useNavigate  } from 'react-router-dom';
 import styles from "./ModalForm.modal.scss";
 
 
@@ -13,23 +11,19 @@ const schema = yup
       .string()
       .min(2, "Name can not be less than 2 characters")
       .max(25, "Name can not be more than 25 characters")
-      .typeError("Please type a character")
-      .required("Please enter your name"),
+      .typeError("Please type a character"),
     price: yup
-      .number()
-      .required("Please enter a number"),
+      .number(),
     maxGuests: yup
-    .number()
-    .required("Please enter a number"),
+    .number(),
     image: yup
       .string(),
     description: yup
       .string(),
 
-}).required();
+})
 
-function ModalForm() {
-
+function ModalForm({ onSubmit }) {
   const {
     register,
     handleSubmit,
@@ -37,11 +31,6 @@ function ModalForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  function onSubmit(){
-    //Api call
-    console.log("Hei")
-  }
 
 
   return (

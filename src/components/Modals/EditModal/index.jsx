@@ -5,7 +5,6 @@ import ModalForm from "../ModalForm";
 const EditModal = ({ show, onClose, venueId }) => {
   const [venueData, setVenueData] = useState(null);
   
-
   useEffect(() => {
     if (venueId) {
       const fetchVenueData = async () => {
@@ -14,7 +13,6 @@ const EditModal = ({ show, onClose, venueId }) => {
         setVenueData(data);
         console.log(venueData)
       };
-
       fetchVenueData();
     }
   }, [venueId]);
@@ -23,8 +21,32 @@ const EditModal = ({ show, onClose, venueId }) => {
     return null;
   }
 
+  const handleSubmit = async (formData) => {
+    try {
+      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${venueId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(formData),
+      });
   
+      if (!response.ok) {
+        throw new Error(`Error updating venue: ${response.statusText}`);
+      }
+  
+      const json = await response.json();
+      console.log("Updated venue data:", json);
+  
+      onClose();
+    } catch (error) {
+      console.error("Error updating venue:", error);
+      
+    }
+  };
 
+  
   return (
     <div className={styles.modal}>
       <div className={styles.modal_content}>
@@ -33,8 +55,7 @@ const EditModal = ({ show, onClose, venueId }) => {
             <h1>Edit Venue</h1>
             <h2>{venueData.name}</h2>
             <p>{venueData.description}</p>
-            <ModalForm/>
-
+            <ModalForm onSubmit={handleSubmit} venueData={venueData} />
           </>
         ) : (
           <p>Loading...</p>
