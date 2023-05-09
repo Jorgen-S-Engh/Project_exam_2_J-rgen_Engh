@@ -1,10 +1,9 @@
+@import "../../../index.scss";
+
 .meta_checkbox{
   display:flex;
   flex-wrap: wrap;
-  *{
-    margin:5px 10px;
-    
-  }
+
 }
 
 .text_area{
@@ -17,8 +16,31 @@
   border-radius: 4px;
   background-color: #ffffff;
   color: #495057;
+  max-width: 92%;
+  max-height: 150px;
 
 }
+
+.media_container{
+  max-height: 120px;
+  overflow: scroll;
+}
+
+.btn {
+  @include btn-styles;
+  margin: 20px 0px;
+}
+
+.form{
+  display:flex;
+  flex-direction: column;
+  max-width:500px;
+  overflow: scroll;
+  
+}
+
+
+
 
 
 

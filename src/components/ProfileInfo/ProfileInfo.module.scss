@@ -114,6 +114,11 @@ p{
   border-radius: 10px;
   background-color: var(--background-color-white);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  
+}
+
+.venue_card{
+  cursor: pointer;
 }
 
 .booking_image, .venue_image{

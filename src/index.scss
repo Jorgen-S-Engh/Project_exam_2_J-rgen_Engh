@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+:root {
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+
+  /* colors */
+  --main-color-green:#04BFBF;
+  --main-color-green-hover: #00a3a3;
+  --main-color-green-danger: #006868;
+  --text-color-white: #FBFBFB;
+  --background-color-white: #F5F5F5;
+  --main-color-gray: #9E9E9E;
+
+}
+
+body{
+  margin:0;
+}
+
+@mixin btn-styles {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 4px;
+  width:200px;
+  margin:0 auto;
+  color: #ffffff;
+  background-color: var(--main-color-green);
+  border-color: var(--main-color-green);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  &:hover {
+    background-color: var(--main-color-green-hover);
+    border-color: var(--main-color-green-hover);
+  }
+  
+}

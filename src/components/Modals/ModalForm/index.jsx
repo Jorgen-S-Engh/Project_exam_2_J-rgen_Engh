@@ -4,18 +4,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styles from "./ModalForm.module.scss";
 
+
 const schema = yup
   .object({
     name: yup
       .string()
       .min(2, "Title can not be less than 2 characters")
-      .max(25, "Title can not be more than 25 characters")
-      .typeError("Please type a character"),
+      .max(25, "Title can not be more than 25 characters"),
     price: yup
       .number(),
     maxGuests: yup
     .number(),
-    images: yup
+    media: yup
       .array(),
     description: yup
       .string(),
@@ -46,9 +46,11 @@ function ModalForm({ onSubmit }) {
           <p>{errors.price?.message}</p>
           <input {...register('maxGuests')} placeholder="Max Guests"/>
           <p>{errors.maxGuests?.message}</p>
-          {imageArray.map((index) => (
-            <input key={index} {...register(`images.${index}`)} placeholder="Image"/>
-          ))}
+          <div className={styles.media_container}>
+            {imageArray.map((index) => (
+              <input key={index} {...register(`media.${index}`)} placeholder="Media"/>
+            ))}
+          </div>
           <p>{errors.images?.message}</p>
           <button className={`${styles.btn}`} type="button" onClick={addImageArray}>Add another image</button>
           <textarea className={styles.text_area} {...register("description")} placeholder='Description'></textarea>
