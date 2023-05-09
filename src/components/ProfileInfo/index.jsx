@@ -46,8 +46,8 @@ function ProfileInfo() {
   
   const closeNewModal = () => {
     setShowNewModal(false);
+    
   };
-  
   
   const accessToken = localStorage.getItem("accessToken");
   const name = localStorage.getItem("name");
@@ -124,6 +124,7 @@ function ProfileInfo() {
                 onClick={() => handleVenueClick(venue.id)}
               >
                 <h4>{venue.name}</h4>
+                <p>{venue.description}</p>
                 <img className={styles.venue_image} src={venue.media} alt={venue.name} />
               </div>
             ))
@@ -137,7 +138,6 @@ function ProfileInfo() {
         onClose={closeModal}
         venueId={selectedVenueId}
       >
-        {/* ... */}
       </EditModal>
   
       <NewModal show={showNewModal} onClose={closeNewModal}>

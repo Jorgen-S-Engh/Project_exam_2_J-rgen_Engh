@@ -1,27 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import styles from "./ModalForm.modal.scss";
-
+import styles from "./ModalForm.module.scss";
 
 const schema = yup
   .object({
     name: yup
       .string()
-      .min(2, "Name can not be less than 2 characters")
-      .max(25, "Name can not be more than 25 characters")
+      .min(2, "Title can not be less than 2 characters")
+      .max(25, "Title can not be more than 25 characters")
       .typeError("Please type a character"),
     price: yup
       .number(),
     maxGuests: yup
     .number(),
-    image: yup
-      .string(),
+    images: yup
+      .array(),
     description: yup
       .string(),
-
-})
+});
 
 function ModalForm({ onSubmit }) {
   const {
@@ -32,11 +30,15 @@ function ModalForm({ onSubmit }) {
     resolver: yupResolver(schema),
   });
 
+  const [imageArray, setImageArray] = useState([0]);
+
+  const addImageArray = () => {
+    setImageArray([...imageArray, imageArray.length]);
+  };
 
   return (
     <>
       <div className={styles.form_container}>
-        <h2 className={styles.h2}>Create Account</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <input {...register("name")} placeholder='Name'/>
           <p>{errors.name?.message}</p>
@@ -44,8 +46,13 @@ function ModalForm({ onSubmit }) {
           <p>{errors.price?.message}</p>
           <input {...register('maxGuests')} placeholder="Max Guests"/>
           <p>{errors.maxGuests?.message}</p>
-          <input {...register('image')} placeholder="Image"/>
-          <p>{errors.image?.message}</p>
+          {imageArray.map((index) => (
+            <input key={index} {...register(`images.${index}`)} placeholder="Image"/>
+          ))}
+          <p>{errors.images?.message}</p>
+          <button className={`${styles.btn}`} type="button" onClick={addImageArray}>Add another image</button>
+          <textarea className={styles.text_area} {...register("description")} placeholder='Description'></textarea>
+          <p>{errors.description?.message}</p>
           <div className={styles.meta_checkbox}>
             <input type="checkbox" id="wifi_included" {...register("WifiIncluded")} value={true}/>
             <label htmlFor="wifi_included">Wifi Included</label>
@@ -58,10 +65,8 @@ function ModalForm({ onSubmit }) {
           </div>
           <input className={styles.btn_submit} type="submit" value="Save changes" />
         </form>
-
       </div>
     </>
-
   )
 }
 
