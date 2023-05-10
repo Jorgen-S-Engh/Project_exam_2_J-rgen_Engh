@@ -56,14 +56,22 @@ function ModalForm({ onSubmit }) {
           <textarea className={styles.text_area} {...register("description")} placeholder='Description'></textarea>
           <p>{errors.description?.message}</p>
           <div className={styles.meta_checkbox}>
-            <input type="checkbox" id="wifi_included" {...register("WifiIncluded")} value={true}/>
-            <label htmlFor="wifi_included">Wifi Included</label>
-            <input type="checkbox" id="parking_included" {...register("parkingIncluded")} value={true}/>
-            <label htmlFor="parking_included">Parking included</label>
-            <input type="checkbox" id="pets_allowed" {...register("petsAllowed")} value={true}/>
-            <label htmlFor="pets_allowed">Pets allowed</label>
-            <input type="checkbox" id="breakfast_included" {...register("breakfastIncluded")} value={true}/>
-            <label htmlFor="breakfast_included">Breakfast included</label>
+            <div className={styles.meta_item}>
+              <input type="checkbox" id="wifi_included" {...register("WifiIncluded")} value={true}/>
+              <label htmlFor="wifi_included">Wifi Included</label>
+            </div>
+            <div className={styles.meta_item}>
+              <input type="checkbox" id="parking_included" {...register("parkingIncluded")} value={true}/>
+              <label htmlFor="parking_included">Parking included</label>
+            </div>
+            <div className={styles.meta_item}>
+              <input type="checkbox" id="pets_allowed" {...register("petsAllowed")} value={true}/>
+              <label htmlFor="pets_allowed">Pets allowed</label>
+            </div>
+            <div className={styles.meta_item}>
+              <input type="checkbox" id="breakfast_included" {...register("breakfastIncluded")} value={true}/>
+              <label htmlFor="breakfast_included">Breakfast included</label>
+            </div>
           </div>
           <div className={styles.btn_container}>
             <input className={styles.btn_submit} type="submit" value="Save changes" />
