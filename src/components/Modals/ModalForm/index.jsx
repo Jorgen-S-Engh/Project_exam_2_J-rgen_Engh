@@ -65,7 +65,10 @@ function ModalForm({ onSubmit }) {
             <input type="checkbox" id="breakfast_included" {...register("breakfastIncluded")} value={true}/>
             <label htmlFor="breakfast_included">Breakfast included</label>
           </div>
-          <input className={styles.btn_submit} type="submit" value="Save changes" />
+          <div className={styles.btn_container}>
+            <input className={styles.btn_submit} type="submit" value="Save changes" />
+            <button className={styles.btn_delete_venue}>Delete Venue</button>
+          </div>
         </form>
       </div>
     </>

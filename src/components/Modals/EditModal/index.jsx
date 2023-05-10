@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Modal.module.scss";
 import ModalForm from "../ModalForm";
-// import styles from "./EditModal.module.scss";
 
 const EditModal = ({ show, onClose, venueId }) => {
   const [venueData, setVenueData] = useState(null);
@@ -54,9 +53,11 @@ const EditModal = ({ show, onClose, venueId }) => {
       <div className={styles.modal_content}>
         {venueData ? (
           <>
-            <h1>Edit Venue</h1>
-            <h2>{venueData.name}</h2>
-            {/* <p className={styles.modal_description}>{venueData.description}</p> */}
+          <div className={styles.headline_container}>
+            <h1 className={styles.h1}>Edit Venue</h1>
+            <h2 className={styles.h2}>{venueData.name}</h2>
+          </div>
+
             <ModalForm onSubmit={handleSubmit} venueData={venueData} />
           </>
         ) : (

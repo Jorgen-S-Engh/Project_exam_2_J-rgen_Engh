@@ -17,7 +17,7 @@
   background-color: #ffffff;
   color: #495057;
   max-width: 92%;
-  max-height: 150px;
+  max-height: 50px;
 
 }
 
@@ -28,7 +28,29 @@
 
 .btn {
   @include btn-styles;
-  margin: 20px 0px;
+  margin: 10px 0px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  max-width: 180px;
+  
+}
+
+.btn_container{
+  margin-bottom: 20px;
+}
+
+.btn_submit, .btn_delete_venue{
+  @include btn-styles;
+  max-width: 130px;
+  margin:5px;
+}
+
+.btn_delete_venue{
+  background-color: var(--main-color-green-danger);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  &:hover{
+    background-color:var(--main-color-green-danger-hover);
+  }
 }
 
 .form{
@@ -36,8 +58,8 @@
   flex-direction: column;
   max-width:500px;
   overflow: scroll;
-  
 }
+
 
 
 
