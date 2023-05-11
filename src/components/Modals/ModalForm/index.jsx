@@ -19,9 +19,11 @@ const schema = yup
       .array(),
     description: yup
       .string(),
+    rating: yup
+      .number(),
 });
 
-function ModalForm({ onSubmit }) {
+function ModalForm({ onSubmit, rating, location, onDeleteVenue }) {
   const {
     register,
     handleSubmit,
@@ -35,6 +37,19 @@ function ModalForm({ onSubmit }) {
   const addImageArray = () => {
     setImageArray([...imageArray, imageArray.length]);
   };
+
+  async function deleteVenue()  {
+    try{
+      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${venueId}`,{
+        method: "DELETE",
+        headers: {
+          "Authorization" : `Bearer${localstorage.getItem("accessToken")}`
+        }
+      })
+    }catch(e){
+      console.log(e)
+    }
+  }
 
   return (
     <>
@@ -53,6 +68,22 @@ function ModalForm({ onSubmit }) {
           </div>
           <p>{errors.images?.message}</p>
           <button className={`${styles.btn}`} type="button" onClick={addImageArray}>Add another image</button>
+          {rating && (
+            <>
+              <input {...register('rating')} placeholder="Rating"/>
+              <p>{errors.rating?.message}</p>
+            
+            </>
+          )}
+          {location && (
+              <div className={styles.location_container}>
+                <input {...register("country")} placeholder="Country"/>
+                <p>{errors.country?.message}</p>
+                <input {...register("city")} placeholder="City"/>
+                <p>{errors.city?.message}</p>
+              </div> 
+          )}
+
           <textarea className={styles.text_area} {...register("description")} placeholder='Description'></textarea>
           <p>{errors.description?.message}</p>
           <div className={styles.meta_checkbox}>
@@ -75,7 +106,9 @@ function ModalForm({ onSubmit }) {
           </div>
           <div className={styles.btn_container}>
             <input className={styles.btn_submit} type="submit" value="Save changes" />
-            <button className={styles.btn_delete_venue}>Delete Venue</button>
+            {deleteVenue && (
+              <button type="button" className={styles.btn_delete_venue} onClick={deleteVenue}>Delete Venue</button>
+            )}
           </div>
         </form>
       </div>

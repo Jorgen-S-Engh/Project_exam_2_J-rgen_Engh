@@ -51,21 +51,24 @@ const EditModal = ({ show, onClose, venueId }) => {
   return (
     <div className={styles.modal}>
       <div className={styles.modal_content}>
-        {venueData ? (
-          <>
-          <div className={styles.headline_container}>
-            <h1 className={styles.h1}>Edit Venue</h1>
-            <h2 className={styles.h2}>{venueData.name}</h2>
-          </div>
-
-            <ModalForm onSubmit={handleSubmit} venueData={venueData} />
-          </>
-        ) : (
-          <p>Loading...</p>
-        )}
         <button className={styles.close_button} onClick={onClose}>
-          Close
+          &times;
         </button>
+        <div className={styles.scrollable_content}>
+          {venueData ? (
+            <>
+            <div className={styles.headline_container}>
+              <h1 className={styles.h1}>Edit Venue</h1>
+              <h2 className={styles.h2}>{venueData.name}</h2>
+            </div>
+  
+            <ModalForm onSubmit={handleSubmit} venueData={venueData} onDeleteVenue={true} venueId={venueId} rating={true}/>
+
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
       </div>
     </div>
   );

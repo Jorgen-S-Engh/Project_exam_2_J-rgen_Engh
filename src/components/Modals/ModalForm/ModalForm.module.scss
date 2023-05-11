@@ -7,7 +7,8 @@
 }
 
 .meta_item{
-  width: 170px;
+  width: 140px;
+  font-size: 0.8rem;
   *{
     margin:5px;
   }
@@ -65,6 +66,11 @@
   max-width:500px;
   overflow: scroll;
 }
+
+// .form_container{
+//   max-height: 95%;
+//   overflow: auto;
+// }
 
 
 
