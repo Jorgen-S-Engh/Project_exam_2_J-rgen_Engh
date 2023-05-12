@@ -16,6 +16,7 @@
 .modal_content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: white;
   padding: 2rem;
   border-radius: 4px;
@@ -53,6 +54,14 @@
   display:flex;
   flex-wrap: wrap;
 }
+
+// .message_container{
+//   width: 500px;
+
+//   *{
+//     max-width:100%;
+//   }
+// }
 
 
 

@@ -1,11 +1,18 @@
 import React from "react";
 import styles from "../Modal.module.scss";
 import ModalForm from "../ModalForm";
+import ErrorMessage from "../../ErrorMessage";
+import SuccessMessage from "../../SuccessMessage";
+import { useState } from "react";
 
 const NewModal = ({ show, onClose }) => {
   if (!show) {
     return null;
   }
+
+  const [customError, setCustomError] = useState("");
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (formData) => {
     try {
@@ -18,15 +25,26 @@ const NewModal = ({ show, onClose }) => {
         
         body: JSON.stringify(formData),
       });
-  
-      if (!response.ok) {
-        throw new Error(`Error creating venue: ${response.statusText}`);
-      }
-  
       const json = await response.json();
-      console.log("Created venue data:", json);
+      console.log(formData)
   
-      onClose();
+      const handleSuccess = () => {
+        setSuccess(true);
+        console.log("yeeh success")
+        setTimeout(() => {
+          location.reload();
+        }, 2500); 
+      };
+      
+      if(response.ok){
+        handleSuccess()
+        setSuccess(true);
+      }else{
+        setCustomError(json.errors[0].message)
+        setApiError(true);
+        throw new Error(`Error updating venue: ${response.statusText}`);
+      }
+
     } catch (error) {
       console.error("Error creating venue:", error);
     }
@@ -42,7 +60,11 @@ const NewModal = ({ show, onClose }) => {
           <div className={styles.headline_container}>
             <h1 className={styles.h1}>New Venue</h1>
           </div>
-          <ModalForm onSubmit={handleSubmit} rating={true} location={true} />
+          <ModalForm onSubmit={handleSubmit} location={true} />
+        </div>
+        <div className={styles.message_container}>
+            {apiError && <ErrorMessage message={customError}/>}
+            {success && <SuccessMessage message={"Venue Successfully Created!"}/>}
         </div>
       </div>
     </div>

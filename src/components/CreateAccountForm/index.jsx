@@ -39,6 +39,8 @@ function CreateAccountForm() {
 
   const navigate = useNavigate()
   const [customError, setCustomError] = useState("");
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
   
 
   const {
@@ -49,8 +51,7 @@ function CreateAccountForm() {
     resolver: yupResolver(schema),
   });
 
-  const [apiError, setApiError] =useState(false)
-  const [success, setSuccess] = useState(false);
+
 
   async function onSubmit(data){
     setApiError(false); 

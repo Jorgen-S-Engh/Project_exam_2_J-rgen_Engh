@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Modal.module.scss";
 import ModalForm from "../ModalForm";
+import ErrorMessage from "../../ErrorMessage";
+import SuccessMessage from "../../SuccessMessage";
 
 const EditModal = ({ show, onClose, venueId }) => {
   const [venueData, setVenueData] = useState(null);
+  const [customError, setCustomError] = useState("");
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
   
   useEffect(() => {
     if (venueId) {
@@ -33,15 +38,25 @@ const EditModal = ({ show, onClose, venueId }) => {
         body: JSON.stringify(formData),
       });
       console.log(JSON.stringify(formData))
-  
-      if (!response.ok) {
-        throw new Error(`Error updating venue: ${response.statusText}`);
-      }
-  
       const json = await response.json();
-      console.log("Updated venue data:", json);
-  
-      onClose();
+
+      const handleSuccess = () => {
+        setSuccess(true);
+        console.log("yeeh success")
+        setTimeout(() => {
+          location.reload();
+        }, 2500); 
+      };
+      
+      if(response.ok){
+        handleSuccess()
+        setSuccess(true);
+      }else{
+        setCustomError(json.errors[0].message)
+        setApiError(true);
+        throw new Error(`Error updating venue: ${response.statusText}`);
+
+      }
     } catch (error) {
       console.error("Error updating venue:", error);
       
@@ -55,6 +70,7 @@ const EditModal = ({ show, onClose, venueId }) => {
           &times;
         </button>
         <div className={styles.scrollable_content}>
+          
           {venueData ? (
             <>
             <div className={styles.headline_container}>
@@ -63,13 +79,20 @@ const EditModal = ({ show, onClose, venueId }) => {
             </div>
   
             <ModalForm onSubmit={handleSubmit} venueData={venueData} onDeleteVenue={true} venueId={venueId} rating={true}/>
+            
 
             </>
           ) : (
             <p>Loading...</p>
           )}
+
+        </div>
+        <div className={styles.message_container}>
+            {apiError && <ErrorMessage message={customError}/>}
+            {success && <SuccessMessage message={"Venue Edited Successfully"}/>}
         </div>
       </div>
+      
     </div>
   );
 };
