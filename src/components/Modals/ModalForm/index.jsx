@@ -57,7 +57,6 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
         }
       })
       console.log(response)
-      // const json = await response.json();
 
       const handleSuccess = () => {
         setSuccess(true);
@@ -93,7 +92,6 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
     onSubmit(data);
   };
 
-  //new Change wowowoowwo
 
   return (
     <>
