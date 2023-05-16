@@ -4,6 +4,7 @@ import Home from "../pages/Home/Index"
 import Login from "../pages/Login/Index"
 import CreateAccount from "../pages/CreateAccount"
 import Profile from "../pages/Profile"
+import SingleVenue from "../pages/SingleVenue"
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
       <Route index element={<Home/>}/>
       <Route path="create-account" element={<CreateAccount/>} />
       <Route path="profile" element={<Profile/>} />
+      <Route path="venue/:id" element={<SingleVenue />} />
       <Route path="*" element={<div>Page not found</div>}/>
     </Routes>
     
