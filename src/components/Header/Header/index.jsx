@@ -33,4 +33,8 @@ function Header() {
   );
 }
 
+{/* <Link to={`product/${product.id}`}>
+<button className={styles.btn_read_more}>Read more</button>
+</Link> */}
+
 export default Header;

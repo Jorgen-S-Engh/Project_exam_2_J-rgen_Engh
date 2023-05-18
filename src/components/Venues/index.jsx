@@ -51,7 +51,8 @@ function Venues() {
             <Link to={`venue/${venue.id}`} key={venue.id}>
                 <div className={styles.venue_card}>
                   <div className={styles.venue_media_container}>
-                      <img src={venue.media[0] ? venue.media : homeImg} alt={venue.name ? venue.name : "Placeholder image of a house"} />
+                      {/* <img src={venue.media[0] ? venue.media : homeImg} alt={venue.name ? venue.name : "Placeholder image of a house"} /> */}
+                      <img src={venue.media[0]}></img>
                   </div>
                   <div className={styles.headline_container}>
                       <h2>{venue.name} - {!venue.location.city || venue.location.city === "Unknown" ? "Unknown" : venue.location.city}, {venue.location.country && venue.location.country}</h2>

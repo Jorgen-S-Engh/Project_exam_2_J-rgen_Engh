@@ -1,0 +1,8 @@
+.image_container{
+  max-width: 100%;
+
+  *{
+    object-fit: contain;
+    width: 100%;
+  }
+}
