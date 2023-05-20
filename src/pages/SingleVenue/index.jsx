@@ -6,6 +6,12 @@ import styles from "./SingleVenue.module.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+// import MyCalendar from '../../components/Calendar';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+
+
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -33,6 +39,7 @@ function SingleVenue() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [events, setEvents] = useState([]);
   let { id } = useParams();
 
   useEffect(() => {
@@ -46,6 +53,14 @@ function SingleVenue() {
         console.log(json)
 
         setData(json);
+        setEvents(json.bookings.map(booking => ({
+          title: 'Booked',
+          start: new Date(booking.dateFrom).toISOString(),
+          end: new Date(booking.dateTo).toISOString(),
+          allDay: true
+        })));
+
+        
       } catch (error) {
         setIsError(true);
         console.log(error);
@@ -54,7 +69,7 @@ function SingleVenue() {
       }
     }
 
-    getData(`https://api.noroff.dev/api/v1/holidaze/venues/${id}`);
+    getData(`https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true`);
   }, [id]);
 
   if (isLoading || !data) {
@@ -90,8 +105,17 @@ function SingleVenue() {
         )}
       </div>
       <h1>{data.name}</h1>
+      <div className={styles.calendar_container}>
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin]}
+          initialView="dayGridMonth"
+          events={events}
+        />
+     </div>
     </div>
+
   )
 }
+
 
 export default SingleVenue
