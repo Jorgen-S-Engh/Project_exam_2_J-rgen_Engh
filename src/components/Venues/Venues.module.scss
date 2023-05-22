@@ -1,7 +1,4 @@
-// body{
-//   background-color: var( --background-color-white);
-//   color: var(--background-color-white);
-// }
+@import "../../../index.scss";
 
 .search_container{
   margin: 10px 0px;
@@ -40,16 +37,9 @@
   }
 }
 
-.meta_container {
-  display:flex;
-  width:80%;
-  margin: 10px 0px;
 
-  *{
-    margin:0px 10px;
-    height: 40px;
-    object-fit: cover;
-  }
+.meta_container {
+  @include meta_container_styles;
 }
 
 .guests_container{

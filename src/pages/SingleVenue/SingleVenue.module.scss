@@ -1,3 +1,12 @@
+@import "../../index.scss";
+
+// .component_container{
+//   display:flex;
+//   align-items: center;
+//   flex-direction: column;
+
+// }
+
 .image_container{
   max-width: 100%;
 
@@ -10,3 +19,30 @@
 .calendar_container{
   margin: 0px 20px;
 }
+
+.booking_container{
+  margin: 20px;
+  display:flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+
+.btn_submit_date{
+  @include btn-styles;
+}
+
+.heading_container{
+  margin: 25px 15px;
+}
+
+.meta_container{
+  @include meta_container_styles;
+}
+.info_container{
+  margin:15px;
+  width: 80%;
+  display:flex;
+  justify-content: space-between;
+}
+
+

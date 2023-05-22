@@ -45,6 +45,19 @@ body{
   
 }
 
+@mixin meta_container_styles
+{
+  display:flex;
+  width:80%;
+  margin: 10px 0px;
+
+  *{
+    margin:0px 10px;
+    height: 40px;
+    object-fit: cover;
+  }
+}
+
 a {
   color: inherit;      
   text-decoration: none; 
