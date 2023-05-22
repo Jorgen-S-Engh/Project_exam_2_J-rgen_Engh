@@ -1,0 +1,14 @@
+
+@import "../../index.scss";
+
+.no_user_container{
+  margin: 30px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn_to_login{
+  @include btn-styles
+}

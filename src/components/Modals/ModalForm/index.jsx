@@ -141,7 +141,7 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
             </div>
           </div>
           <div className={styles.btn_container}>
-            <input className={styles.btn_submit} type="submit" value="Create Venue" />
+            <input className={styles.btn_submit} type="submit" value="Save" />
             {onDeleteVenue && ( 
               <button type="button" className={styles.btn_delete_venue} onClick={deleteVenue}>Delete Venue</button>
             )}

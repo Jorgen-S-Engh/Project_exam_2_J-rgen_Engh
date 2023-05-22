@@ -4,12 +4,17 @@ import styles from "../Header.module.scss";
 import logo from "../../../assets/logo.png";
 import profile from "../../../assets/test_profile.jpg";
 import { useNavigate } from "react-router-dom";
-import Search from "../Search";
 
 function Header() {
   const navigate = useNavigate();
 
   const avatar = localStorage.getItem("avatar");
+  console.log(avatar)
+  if(avatar){
+    console.log("avatar is true")
+  }else{
+    console.log("avatar is false")
+  }
 
   return (
     <div className={styles.header}>
@@ -20,11 +25,11 @@ function Header() {
           onClick={() => navigate("/")}
         />
       </div>
-      {/* <Search /> */}
       <div className={styles.profile}>
+        
         <img
           className={styles.profile_img}
-          src={avatar === "" ? profile : avatar}
+          src={avatar ==="null" ? profile : avatar}
           alt="Profile"
           onClick={() => navigate("/profile")}
         />
@@ -32,9 +37,5 @@ function Header() {
     </div>
   );
 }
-
-{/* <Link to={`product/${product.id}`}>
-<button className={styles.btn_read_more}>Read more</button>
-</Link> */}
 
 export default Header;

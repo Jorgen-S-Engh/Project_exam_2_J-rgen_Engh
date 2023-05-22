@@ -109,7 +109,9 @@ function LoginForm() {
           <hr/>
         </div>
           <button className={styles.btn_submit} onClick={(()=> navigate("/create-account"))}>Create account</button>
+          <button className={`${styles.btn_submit} ${styles.btn_no_user}`} onClick={(()=> navigate("/"))}>Continue without user</button>
       </div>
+        
     </>
 
   )

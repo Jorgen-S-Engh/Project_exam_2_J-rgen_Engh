@@ -70,6 +70,7 @@ function ProfileInfo() {
     navigate("/login");
     localStorage.clear();
   }
+  console.log(localStorage.getItem("accessToken"))
 
   return (
     <>
@@ -114,7 +115,7 @@ function ProfileInfo() {
             <p>No Bookings</p>
           )}
         </div>
-        {venues.length > 0 ? <h3>Your Venues</h3> : <h3>You have no venues yet</h3>}
+        {venues.length > 0 ? <h3>Your Venues</h3> : <h3>You have no venues</h3>}
         <div className={styles.venue_container}>
           {data.venueManager && venues ? (
             venues.map((venue) => (
