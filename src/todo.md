@@ -12,7 +12,6 @@
 * Booked failure
 * Bedre merka nav arrow for carousel
 * UPDATE AVATAR!
-* A registered Venue manager may view bookings for a Venue they manage!!
 * Informasjonen på profilsiden går utover container (info om brukeren)
 * No of guests når man booker en venue. 
 

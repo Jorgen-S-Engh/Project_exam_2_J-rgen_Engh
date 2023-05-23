@@ -19,8 +19,8 @@
 }
 
 .image_container {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   display:flex;
   justify-content: center;
   margin: 10px 10px;
@@ -129,9 +129,14 @@ p{
 
 .btn_edit_venue{
   @include btn-styles;
-  max-width: 75px;
+  max-width: 140px;
   font-size: 0.7rem;
   padding: 5px;
   margin:10px;
   font-weight: bold;
+}
+
+.description_container{
+  max-height: 300px;
+  overflow: scroll;
 }
