@@ -1,5 +1,5 @@
 import styles from "./ProfileInfo.module.scss";
-import profile from "../../assets/test_profile.jpg";
+import profile from "../../assets/no_user.png";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,8 @@ function ProfileInfo() {
   const bookings = profileData && profileData._count ? profileData._count.bookings : null;
   const venues = profileData && profileData.venues ? profileData.venues : 0;
   const bookingsArray = profileData && profileData.bookings ? profileData.bookings : 0;
+
+  console.log(profileData)
 
   const handleEditModal = () => {
     setShowEditModal(true);
@@ -70,7 +72,6 @@ function ProfileInfo() {
     navigate("/login");
     localStorage.clear();
   }
-  console.log(localStorage.getItem("accessToken"))
 
   return (
     <>
@@ -79,7 +80,7 @@ function ProfileInfo() {
           <div className={styles.image_container}>
             <img
               className={styles.img}
-              src={data.avatar === "" ? profile : data.avatar}
+              src={!data.avatar ? profile : data.avatar}
               alt="Profile"
             />
           </div>
@@ -127,7 +128,9 @@ function ProfileInfo() {
                 <h4>{venue.name}</h4>
                 <p>{venue.description}</p>
                 <img className={styles.venue_image} src={venue.media} alt={venue.name} />
+                <button className={styles.btn_edit_venue}>Edit venue</button>
               </div>
+              
             ))
           ) : (
             <p>No Venues</p>

@@ -23,9 +23,11 @@ const NewModal = ({ show, onClose }) => {
           'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
         },
         
+        
         body: JSON.stringify(formData),
       });
       const json = await response.json();
+      console.log(response)
       console.log(formData)
   
       const handleSuccess = () => {
@@ -62,10 +64,8 @@ const NewModal = ({ show, onClose }) => {
           </div>
           <ModalForm onSubmit={handleSubmit} location={true} />
         </div>
-        <div className={styles.message_container}>
             {apiError && <ErrorMessage message={customError}/>}
             {success && <SuccessMessage message={"Venue Successfully Created!"}/>}
-        </div>
       </div>
     </div>
 

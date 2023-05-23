@@ -55,13 +55,16 @@
   flex-wrap: wrap;
 }
 
-// .message_container{
-//   width: 500px;
+.booking_card{
+  display:flex;
+  flex-direction: column;
+  border: solid 2px var(--main-color-green);
+  border-radius: 15px;
+  max-width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
 
-//   *{
-//     max-width:100%;
-//   }
-// }
+}
 
 
 

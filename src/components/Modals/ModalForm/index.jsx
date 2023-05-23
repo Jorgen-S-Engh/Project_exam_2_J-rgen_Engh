@@ -13,7 +13,7 @@ const schema = yup
     name: yup
       .string()
       .min(2, "Title can not be less than 2 characters")
-      .max(25, "Title can not be more than 25 characters"),
+      .max(45, "Title can not be more than 45 characters"),
     price: yup
       .number(),
     maxGuests: yup
@@ -56,7 +56,6 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
           "Authorization" : `Bearer ${localStorage.getItem("accessToken")}`
         }
       })
-      console.log(response)
 
       const handleSuccess = () => {
         setSuccess(true);
@@ -98,20 +97,20 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
       <div className={styles.form_container}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmitForm)}>
           <input {...register("name")} placeholder='Name'/>
-          <p>{errors.name?.message}</p>
+          <p className={styles.error_message}>{errors.name?.message}</p>
           <input {...register('price')} placeholder='Price' />
-          <p>{errors.price?.message}</p>
+          <p className={styles.error_message}>{errors.price?.message}</p>
           <input {...register('maxGuests')} placeholder="Max Guests"/>
-          <p>{errors.maxGuests?.message}</p>
+          <p className={styles.error_message}>{errors.maxGuests?.message}</p>
           <div className={styles.media_container}>
             {imageArray.map((index) => (
               <input key={index} {...register(`media.${index}`)} placeholder="Media"/>
             ))}
           </div>
-          <p>{errors.images?.message}</p>
+          <p className={styles.error_message}>{errors.images?.message}</p>
           <button className={`${styles.btn}`} type="button" onClick={addImageArray}>Add another image</button>
           <input {...register('rating')} placeholder="Rating"/>
-          <p>{errors.rating?.message}</p>
+          <p className={styles.error_message}>{errors.rating?.message}</p>
           {location && (
               <div className={styles.location_container}>
                 <input {...register("country")} placeholder="Country"/>
@@ -141,16 +140,14 @@ function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
             </div>
           </div>
           <div className={styles.btn_container}>
-            <input className={styles.btn_submit} type="submit" value="Save" />
+            <input className={styles.btn_submit} type="submit" value="Create Venue" />
             {onDeleteVenue && ( 
               <button type="button" className={styles.btn_delete_venue} onClick={deleteVenue}>Delete Venue</button>
             )}
           </div>
         </form>
-        <div className={styles.message_container}>
             {apiError && <ErrorMessage message={customError}/>}
             {success && <SuccessMessage message={"Venue Successfully Deleted"}/>}
-        </div>
       </div>
     </>
   )

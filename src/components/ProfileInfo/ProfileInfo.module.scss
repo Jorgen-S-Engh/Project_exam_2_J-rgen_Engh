@@ -1,4 +1,4 @@
-body{}
+@import "../../index.scss";
 
 .profile_info{
   display:flex;
@@ -125,4 +125,13 @@ p{
   width: 100%;
   object-fit: contain;
   border-radius: 10px;
+}
+
+.btn_edit_venue{
+  @include btn-styles;
+  max-width: 75px;
+  font-size: 0.7rem;
+  padding: 5px;
+  margin:10px;
+  font-weight: bold;
 }

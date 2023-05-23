@@ -1,8 +1,7 @@
-// Header.js
 import React from "react";
 import styles from "../Header.module.scss";
 import logo from "../../../assets/logo.png";
-import profile from "../../../assets/test_profile.jpg";
+import profile from "../../../assets/no_user.png";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
@@ -29,7 +28,7 @@ function Header() {
         
         <img
           className={styles.profile_img}
-          src={avatar ==="null" ? profile : avatar}
+          src={avatar ? avatar : profile}
           alt="Profile"
           onClick={() => navigate("/profile")}
         />

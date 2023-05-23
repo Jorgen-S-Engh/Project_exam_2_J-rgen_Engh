@@ -9,18 +9,21 @@ const EditModal = ({ show, onClose, venueId }) => {
   const [customError, setCustomError] = useState("");
   const [apiError, setApiError] =useState(false)
   const [success, setSuccess] = useState(false);
-  
+
   useEffect(() => {
     if (venueId) {
       const fetchVenueData = async () => {
-        const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${venueId}`);
+        const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${venueId}?_bookings=true`);
         const data = await response.json();
         setVenueData(data);
-        console.log(venueData)
       };
       fetchVenueData();
     }
   }, [venueId]);
+
+  useEffect(() => {
+    console.log(venueData);
+  }, [venueData]);
 
   if (!show) {
     return null;
@@ -37,12 +40,10 @@ const EditModal = ({ show, onClose, venueId }) => {
         
         body: JSON.stringify(formData),
       });
-      console.log(JSON.stringify(formData))
       const json = await response.json();
 
       const handleSuccess = () => {
         setSuccess(true);
-        console.log("yeeh success")
         setTimeout(() => {
           location.reload();
         }, 2500); 
@@ -70,7 +71,6 @@ const EditModal = ({ show, onClose, venueId }) => {
           &times;
         </button>
         <div className={styles.scrollable_content}>
-          
           {venueData ? (
             <>
             <div className={styles.headline_container}>
@@ -79,8 +79,20 @@ const EditModal = ({ show, onClose, venueId }) => {
             </div>
   
             <ModalForm onSubmit={handleSubmit} venueData={venueData} onDeleteVenue={true} venueId={venueId} rating={true}/>
-            
+              <div className={styles.bookings}>
+                <h3>Your bookings</h3>
+                {venueData.bookings.length > 0 ? (
+                  venueData.bookings.map((booking, index) =>(
+                    <div key={booking.id} className={styles.booking_card}>
+                      <h4>Booking no: {index +1}</h4>
+                      <p>From: {new Date (booking.dateFrom).toDateString()}</p>
+                      <p>To: {new Date (booking.dateTo).toDateString()}</p>
+                      <p>No guests: {booking.guests}</p>
+                    </div>
+                  ))
 
+                ): <h3>No bookings yet</h3>}
+            </div>
             </>
           ) : (
             <p>Loading...</p>

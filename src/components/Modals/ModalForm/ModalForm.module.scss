@@ -3,6 +3,7 @@
 .meta_checkbox{
   display:flex;
   flex-wrap: wrap;
+  max-width:400px;
 
 }
 
@@ -67,11 +68,16 @@
   overflow: scroll;
 }
 
-// .form_container{
-//   max-height: 95%;
-//   overflow: auto;
-// }
+.message_container{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
+.error_message{
+  color:red;
+}
 
 
 
