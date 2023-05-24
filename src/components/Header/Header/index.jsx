@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Header.module.scss";
 import logo from "../../../assets/logo.png";
 import profile from "../../../assets/no_user.png";
@@ -6,14 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
+  const [avatarImg, setAvatarImg] = useState(localStorage.getItem("avatar"));
 
-  const avatar = localStorage.getItem("avatar");
-  console.log(avatar)
-  if(avatar){
-    console.log("avatar is true")
-  }else{
-    console.log("avatar is false")
-  }
 
   return (
     <div className={styles.header}>
@@ -25,10 +19,9 @@ function Header() {
         />
       </div>
       <div className={styles.profile}>
-        
         <img
           className={styles.profile_img}
-          src={avatar ? avatar : profile}
+          src={avatarImg ? avatarImg : profile}
           alt="Profile"
           onClick={() => navigate("/profile")}
         />

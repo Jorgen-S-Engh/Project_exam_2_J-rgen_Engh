@@ -9,13 +9,16 @@ import "slick-carousel/slick/slick-theme.css";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { formatISO } from 'date-fns';
+import { formatISO, set } from 'date-fns';
 import breakfast from "../../assets/breakfast.png"
 import pets from "../../assets/pawprint.png"
 import wifi from "../../assets/wifi.png"
 import parking from "../../assets/parked-car.png"
 import guests from "../../assets/group.png"
 import NoUser from '../../components/NoUser';
+import Spinner from '../../components/Spinner';
+import ErrorMessage from '../../components/ErrorMessage';
+import SuccessMessage from '../../components/SuccessMessage';
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -46,6 +49,9 @@ function SingleVenue() {
   const [events, setEvents] = useState([]);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [customError, setCustomError] = useState("");
+  const [apiError, setApiError] =useState(false)
+  const [success, setSuccess] = useState(false);
   let { id } = useParams();
 
   useEffect(() => {
@@ -65,8 +71,14 @@ function SingleVenue() {
           end: new Date(booking.dateTo).toISOString(),
           allDay: true
         })));
+        // if(response.ok){
+        //   setSuccess(true)
+        // }else{
+        //   setApiError(true)
+        //   setCustomError(json.errors[0].message)
+        // }
       } catch (error) {
-        setIsError(true);
+        // setIsError(true);
         console.log(error);
       } finally {
         setIsLoading(false);
@@ -93,13 +105,23 @@ function SingleVenue() {
   };
   
   const handleBooking = async () => {
+
+    const handleErrorMessage = () =>{
+      setApiError(true)
+      setTimeout(() =>{
+        setApiError(false)
+      }, 5000)
+    }
+
     if (!selectedStartDate || !selectedEndDate) {
-      alert('Please select a start and end date');
+      handleErrorMessage()
+      setCustomError("Please select a start and end date")
       return;
     }
   
     if (!checkAvailability(new Date(selectedStartDate), new Date(selectedEndDate))) {
-      alert('The selected date range is already booked');
+      handleErrorMessage()
+      setCustomError("The selected date range is already booked")
       return;
     }
   
@@ -118,6 +140,13 @@ function SingleVenue() {
           guests: 1,
         }),
       });
+
+      setSuccess(true)
+      setTimeout(() =>{
+        setSuccess(false)
+      }, 5000)
+
+
       console.log(response)
   
       const newBooking = await response.json();
@@ -138,11 +167,15 @@ function SingleVenue() {
   
 
   if (isLoading || !data) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Spinner/>
+      </>
+    );
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <h1>Something went wrong, please try again</h1>;
   }
 
   const settings = {
@@ -199,6 +232,11 @@ function SingleVenue() {
               right: 'title'
             }}/>
         </div>
+        <div className={styles.message_container}>
+            {apiError && <ErrorMessage message={customError}/>}
+            {success && <SuccessMessage message={"Date successfully booked!"}/>}
+          </div>
+
         {localStorage.getItem('accessToken') ? (
           <div className={styles.booking_container}>
             <h2>Book your holiday</h2>

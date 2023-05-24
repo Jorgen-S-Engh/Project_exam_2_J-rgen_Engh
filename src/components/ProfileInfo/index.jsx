@@ -7,8 +7,7 @@ import useProfileData from "../ProfileData";
 import EditModal from "../Modals/EditModal";
 import NewModal from "../Modals/NewModal";
 import ChangeAvatarModal from "../Modals/ChangeAvatarModal";
-
-
+import Spinner from "../Spinner";
 
 
 function ProfileInfo() {
@@ -61,38 +60,52 @@ function ProfileInfo() {
     setShowChangeAvatarModal(false);
   };
   
-  // const accessToken = localStorage.getItem("accessToken");
-  // const name = localStorage.getItem("name");
+  const accessToken = localStorage.getItem("accessToken");
+  const name = localStorage.getItem("name");
   const handleAvatarChange = async (newAvatarUrl) => {
     try {
-      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/users/${yourUserId}`, {
+      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/profiles/${name}/media`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({ avatar: newAvatarUrl }),
       });
-      
+  
       if (!response.ok) {
-        throw new Error(`Error updating avatar: ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`Error updating avatar: ${errorText || response.statusText}`);
       }
-
-      // Update the avatarUrl state upon successful response
+  
+      localStorage.setItem("avatar", newAvatarUrl);
+      window.location.reload();
       setAvatarUrl(newAvatarUrl);
+  
+      return { success: true };
     } catch (error) {
       console.error("Error updating avatar:", error);
+      return { success: false, error: error.message };
     }
   };
-
-
   
+
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Spinner/>;
+      </>
+    )
+    
   }
 
   if (status === "failed") {
-    return <div>Error: {error}</div>;
+    return (
+      <div>
+        <h1>Something went wrong, please try again</h1>
+        <p>Error: {error}</p>
+      </div>
+    );
   }
 
   function logOut(){
@@ -127,8 +140,8 @@ function ProfileInfo() {
         </div>
         <div className={styles.info_column}>
           <h1>{data.name}</h1>
-          <h2>No. Bookings: {bookings}</h2>
-          {data.venueManager && <h3>Venue Manager</h3>}
+          {data.venueManager && <h2>Venue Manager</h2>}
+          <h3>No. Bookings: {bookings}</h3>
         </div>
       </div>
       <div className={styles.bookings_venues}>
@@ -148,9 +161,9 @@ function ProfileInfo() {
             <p>No Bookings</p>
           )}
         </div>
-        {venues.length > 0 ? <h3>Your Venues</h3> : <h3>You have no venues</h3>}
+        {venues.length > 0 && <h3>Your Venues</h3>}
         <div className={styles.venue_container}>
-          {data.venueManager && venues ? (
+          {data.venueManager && venues && (
             venues.map((venue) => (
               <div
                 key={venue.id}
@@ -166,8 +179,6 @@ function ProfileInfo() {
               </div>
               
             ))
-          ) : (
-            <p>No Venues</p>
           )}
         </div>
       </div>

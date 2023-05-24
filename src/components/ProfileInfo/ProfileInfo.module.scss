@@ -71,11 +71,16 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 50%;
-
+  max-width: 50%;
 }
 
-h1, h3{
+h1{
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3{
   font-size: 1rem;
 }
 
@@ -140,3 +145,4 @@ p{
   max-height: 300px;
   overflow: scroll;
 }
+

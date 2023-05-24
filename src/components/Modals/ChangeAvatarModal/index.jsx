@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import styles from "../Modal.module.scss";
+import ErrorMessage from "../../ErrorMessage";
+import SuccessMessage from "../../SuccessMessage";
+
 
 const ChangeAvatarModal = ({ show, onClose, onAvatarChange }) => {
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
+  const [apiError, setApiError] =useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onAvatarChange(newAvatarUrl);
-    onClose();
+    const result = await onAvatarChange(newAvatarUrl);
+  
+    if (result.success) {
+      setSuccess(true);
+      setApiError(false);
+    } else {
+      setSuccess(false);
+      setApiError(result.error);
+    }
+  
+    setTimeout(() => {
+      onClose();
+    }, 5000); 
   };
+  
 
   return show ? (
     <div className={styles.modal}>
@@ -16,9 +33,9 @@ const ChangeAvatarModal = ({ show, onClose, onAvatarChange }) => {
         <button className={styles.close_button} onClick={onClose}>
           &times;
         </button>
-        <div className={styles.scrollable_content}>
+        <div >
           <h1>Change Avatar</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.change_avatar_form}>
             <input 
               type="text"
               value={newAvatarUrl}
@@ -26,9 +43,12 @@ const ChangeAvatarModal = ({ show, onClose, onAvatarChange }) => {
               placeholder="New avatar URL"
               required
             />
-            <button type="submit">Submit</button>
+            <button type="submit" className={styles.btn_submit}>Submit</button>
           </form>
         </div>
+        {apiError && <ErrorMessage message={apiError}/>}
+        {success && <SuccessMessage message={"Avatar updated successfully!"}/>}
+
       </div>
     </div>
   ) : null;
