@@ -1,5 +1,6 @@
 @import "../../index.scss";
 
+
 .search_container{
   margin: 10px 0px;
   display:flex;
@@ -21,8 +22,8 @@
   align-items: center;
   justify-content: center;
   margin:20px 20px;
-  padding: 10px;
   cursor: pointer;
+  max-width:300px;
 }
 
 .venue_media_container{
@@ -84,6 +85,29 @@
   display:flex;
   justify-content: space-between;
 }
+
+.card_container{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width:100%;
+}
+
+.headline{
+  text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+
+  .venue_card{
+    width: 300px;
+  }
+
+
+
+
+}
+
 
 
 

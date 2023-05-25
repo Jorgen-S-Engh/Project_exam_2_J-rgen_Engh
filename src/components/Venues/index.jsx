@@ -53,33 +53,35 @@ function Venues() {
                 onChange={(e) => setSearchWord(e.target.value)}
             />
           </div>
-          {isLoading ? <Spinner/> : (
-            filteredVenues.map(venue => (
-            <Link to={`venue/${venue.id}`} key={venue.id}>
-                <div className={styles.venue_card}>
-                    <div className={styles.venue_media_container}>
-                        <img src={venue.media[0]}></img>
-                    </div>
-                    <div className={styles.headline_container}>
-                        <h2>{venue.name} - {!venue.location.city || venue.location.city === "Unknown" ? "Unknown" : venue.location.city}, {venue.location.country && venue.location.country}</h2>
-                        <div className={styles.guests_container}>
-                            <div className={styles.guests_circle}>{venue.maxGuests}</div>
-                            <img className={styles.guests_icon} src={guests} alt="Number of max guests" />
+            <h1 className={styles.headline}>Featured Venues</h1>
+          <div className={styles.card_container}>
+            {isLoading ? <Spinner/> : (
+                filteredVenues.map(venue => (
+                <Link to={`venue/${venue.id}`} key={venue.id}>
+                    <div className={styles.venue_card}>
+                        <div className={styles.venue_media_container}>
+                            <img src={venue.media[0]}></img>
+                        </div>
+                        <div className={styles.headline_container}>
+                            <h2>{venue.name} - {!venue.location.city || venue.location.city === "Unknown" ? "Unknown" : venue.location.city}, {venue.location.country && venue.location.country}</h2>
+                            <div className={styles.guests_container}>
+                                <div className={styles.guests_circle}>{venue.maxGuests}</div>
+                                <img className={styles.guests_icon} src={guests} alt="Number of max guests" />
+                            </div>
+                        </div>
+                        <div className={styles.meta_container}>
+                            {venue.meta.wifi && <img src={wifi} alt="wifi icon"/>}
+                            {venue.meta.pets && <img src={pets} alt="pets icon"/>}
+                            {venue.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
+                            {venue.meta.parking && <img src={parking} alt="parking icon"/>}
+                        </div>
+                        <div className={styles.info_container}>
+                            <p>Price: {venue.price}</p>
+                            <p>Rating: {venue.rating}</p>
                         </div>
                     </div>
-                    <div className={styles.meta_container}>
-                        {venue.meta.wifi && <img src={wifi} alt="wifi icon"/>}
-                        {venue.meta.pets && <img src={pets} alt="pets icon"/>}
-                        {venue.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
-                        {venue.meta.parking && <img src={parking} alt="parking icon"/>}
-                    </div>
-                    <div className={styles.info_container}>
-                        <p>Price: {venue.price}</p>
-                        <p>Rating: {venue.rating}</p>
-                    </div>
-                </div>
-            </Link>))
-          )}
+                </Link>)))}
+          </div>
         </div>
     );
 }

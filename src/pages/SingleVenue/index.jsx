@@ -71,14 +71,8 @@ function SingleVenue() {
           end: new Date(booking.dateTo).toISOString(),
           allDay: true
         })));
-        // if(response.ok){
-        //   setSuccess(true)
-        // }else{
-        //   setApiError(true)
-        //   setCustomError(json.errors[0].message)
-        // }
+
       } catch (error) {
-        // setIsError(true);
         console.log(error);
       } finally {
         setIsLoading(false);
@@ -189,67 +183,72 @@ function SingleVenue() {
   };
 
   return (
-    <div className={styles.component_container}>
-        <Header/>
-        <div className={styles.image_container}>
-          {data.media && (
-            <Slider {...settings}>
-              {data.media.map((img, index) => (
-                <div key={index}>
-                  <img src={img} alt={data.name} />
-                </div>
-              ))}
-            </Slider>
-          )}
+    <>
+      <Header/>
+      <div className={styles.component_container}>
+        <div className={styles.first_row}>
+          <div className={styles.image_container}>
+              {data.media && (
+                <Slider {...settings}>
+                  {data.media.map((img, index) => (
+                    <div key={index}>
+                      <img src={img} alt={data.name} />
+                    </div>
+                  ))}
+                </Slider>
+              )}
+            </div>
+            <div className={styles.heading_container}>
+              <h1>{data.name}</h1>
+              <h2>Description</h2>
+              <p>{data.description}</p>
+            </div>
         </div>
-        <div className={styles.heading_container}>
-          <h1>{data.name}</h1>
-          <h2>Description</h2>
-          <p>{data.description}</p>
+        <div className={styles.meta_info_container}>
+          <div className={styles.meta_container}>
+                {data.meta.wifi && <img src={wifi} alt="wifi icon"/>}
+                {data.meta.pets && <img src={pets} alt="pets icon"/>}
+                {data.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
+                {data.meta.parking && <img src={parking} alt="parking icon"/>}
+            </div>
+            <div className={styles.info_container}>
+                <p>Price: {data.price}</p>
+                <p>Rating: {data.rating}</p>
+            </div>
         </div>
-        <div className={styles.meta_container}>
-            {data.meta.wifi && <img src={wifi} alt="wifi icon"/>}
-            {data.meta.pets && <img src={pets} alt="pets icon"/>}
-            {data.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
-            {data.meta.parking && <img src={parking} alt="parking icon"/>}
-        </div>
-        <div className={styles.info_container}>
-            <p>Price: {data.price}</p>
-            <p>Rating: {data.rating}</p>
-        </div>
-
         <div className={styles.booking_container}>
+          <div className={styles.calendar_container}>
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin]}
+              initialView="dayGridMonth"
+              events={events}
+              headerToolbar={{
+                left: 'prev,next',
+                center: '',
+                right: 'title'
+              }}/>
+          </div>
+          <div className={styles.message_container}>
+              {apiError && <ErrorMessage message={customError}/>}
+              {success && <SuccessMessage message={"Date successfully booked!"}/>}
+          </div>
+
+          {localStorage.getItem('accessToken') ? (
+            <div className={styles.booking_info}>
+              <h2>Book your holiday</h2>
+              <label htmlFor="date_from">From date</label>
+              <input type="date" id="date_from" value={selectedStartDate || ''} onChange={(e) => setSelectedStartDate(e.target.value)} />
+              <label htmlFor="date_to">To date</label>
+              <input type="date" id="date_to" value={selectedEndDate || ''} onChange={(e) => setSelectedEndDate(e.target.value)} />
+              <button className={styles.btn_submit_date} onClick={handleBooking}>Book Now</button>
+            </div>
           
+
+          ): <NoUser message={"book venue"}/>}
         </div>  
-        <div className={styles.calendar_container}>
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin]}
-            initialView="dayGridMonth"
-            events={events}
-            headerToolbar={{
-              left: 'prev,next',
-              center: '',
-              right: 'title'
-            }}/>
-        </div>
-        <div className={styles.message_container}>
-            {apiError && <ErrorMessage message={customError}/>}
-            {success && <SuccessMessage message={"Date successfully booked!"}/>}
-          </div>
 
-        {localStorage.getItem('accessToken') ? (
-          <div className={styles.booking_container}>
-            <h2>Book your holiday</h2>
-            <label htmlFor="date_from">From date</label>
-            <input type="date" id="date_from" value={selectedStartDate || ''} onChange={(e) => setSelectedStartDate(e.target.value)} />
-            <label htmlFor="date_to">To date</label>
-            <input type="date" id="date_to" value={selectedEndDate || ''} onChange={(e) => setSelectedEndDate(e.target.value)} />
-            <button className={styles.btn_submit_date} onClick={handleBooking}>Book Now</button>
-          </div>
-
-        ): <NoUser message={"book venue"}/>}
-
-    </div>
+      </div>
+    </>
   );
 }
 
