@@ -9,7 +9,7 @@ import WelcomeTextLogin from '../../components/WelcomeTextLogin';
 function CreateAccount() {
   return (
     <>
-      <WelcomeTextLogin/>
+      {/* <WelcomeTextLogin/> */}
       <CreateAccountForm/>
     
     </>

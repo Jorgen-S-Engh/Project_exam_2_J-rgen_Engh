@@ -205,17 +205,18 @@ function SingleVenue() {
             </div>
         </div>
         <div className={styles.meta_info_container}>
-          <div className={styles.meta_container}>
-                {data.meta.wifi && <img src={wifi} alt="wifi icon"/>}
-                {data.meta.pets && <img src={pets} alt="pets icon"/>}
-                {data.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
-                {data.meta.parking && <img src={parking} alt="parking icon"/>}
+              <div className={styles.meta_container}>
+                    {data.meta.wifi && <img src={wifi} alt="wifi icon"/>}
+                    {data.meta.pets && <img src={pets} alt="pets icon"/>}
+                    {data.meta.breakfast && <img src={breakfast} alt="breakfast icon"/>}
+                    {data.meta.parking && <img src={parking} alt="parking icon"/>}
+                </div>
+              <div className={styles.info_container}>
+                  <p>Price: {data.price}</p>
+                  <p>Rating: {data.rating}</p>
+              </div>
             </div>
-            <div className={styles.info_container}>
-                <p>Price: {data.price}</p>
-                <p>Rating: {data.rating}</p>
-            </div>
-        </div>
+
         <div className={styles.booking_container}>
           <div className={styles.calendar_container}>
             <FullCalendar

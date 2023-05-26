@@ -6,7 +6,7 @@ import WelcomeTextLogin from '../../components/WelcomeTextLogin';
 function Login() {
   return (
     <>
-      <WelcomeTextLogin/>
+      {/* <WelcomeTextLogin/> */}
       <LoginForm/>
     </>
     

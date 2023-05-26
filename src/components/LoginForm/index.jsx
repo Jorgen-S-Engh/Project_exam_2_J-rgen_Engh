@@ -7,6 +7,7 @@ import { useNavigate  } from 'react-router-dom';
 import { useState } from 'react';
 import ErrorMessage from '../ErrorMessage';
 import SuccessMessage from '../SuccessMessage';
+import WelcomeTextLogin from '../WelcomeTextLogin';
 
 
 const schema =yup
@@ -90,27 +91,30 @@ function LoginForm() {
 
   return (
     <>
-      <div className={styles.form_container}>
-        <h2 className={styles.h2}>Login</h2>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <input className={styles.input} {...register('email')} defaultValue={emailLocal? emailLocal : "" } placeholder='Email'/>
-          <p>{errors.email?.message}</p>
-          <input type="password" className={styles.input} {...register('password')} defaultValue={passwordLocal? passwordLocal : "" } placeholder='Password'/>
-          <p>{errors.password?.message}</p>
-          <input className={styles.btn_submit} type="submit" value="Login" />
+    <div className={styles.component_container}>
+      <WelcomeTextLogin/>
+        <div className={styles.form_container}>
+          <h2 className={styles.h2}>Login</h2>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <input className={styles.input} {...register('email')} defaultValue={emailLocal? emailLocal : "" } placeholder='Email'/>
+            <p>{errors.email?.message}</p>
+            <input type="password" className={styles.input} {...register('password')} defaultValue={passwordLocal? passwordLocal : "" } placeholder='Password'/>
+            <p>{errors.password?.message}</p>
+            <input className={styles.btn_submit} type="submit" value="Login" />
 
-          <div className={styles.message_container}>
-            {apiError && <ErrorMessage message={customError}/>}
-            {success && <SuccessMessage message={"Login Successfull!"}/>}
+            <div className={styles.message_container}>
+              {apiError && <ErrorMessage message={customError}/>}
+              {success && <SuccessMessage message={"Login Successfull!"}/>}
+            </div>
+          </form>
+          <div className={styles.mid_section}>
+            <h3>Or</h3>
+            <hr/>
           </div>
-        </form>
-        <div className={styles.mid_section}>
-          <h3>Or</h3>
-          <hr/>
+            <button className={styles.btn_submit} onClick={(()=> navigate("/create-account"))}>Create account</button>
+            <button className={`${styles.btn_submit} ${styles.btn_no_user}`} onClick={(()=> navigate("/"))}>Continue without user</button>
         </div>
-          <button className={styles.btn_submit} onClick={(()=> navigate("/create-account"))}>Create account</button>
-          <button className={`${styles.btn_submit} ${styles.btn_no_user}`} onClick={(()=> navigate("/"))}>Continue without user</button>
-      </div>
+     </div>
         
     </>
 

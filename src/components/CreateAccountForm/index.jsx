@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import ErrorMessage from '../ErrorMessage';
 import SuccessMessage from '../SuccessMessage';
+import WelcomeTextLogin from '../WelcomeTextLogin';
 
 
 const schema = yup
@@ -106,33 +107,36 @@ function CreateAccountForm() {
 
   return (
     <>
-      <div className={styles.form_container}>
-        <h2 className={styles.h2}>Create Account</h2>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("name")} placeholder='Name'/>
-          <p>{errors.name?.message}</p>
-          <input {...register('email')} placeholder='Email' />
-          <p>{errors.email?.message}</p>
-          <input type="password" {...register('password')} placeholder="Password"/>
-          <p>{errors.password?.message}</p>
-          <input {...register('avatar')} placeholder="Avatar"/>
-          <p>{errors.avatar?.message}</p>
-          <div className={styles.venue_manager}>
-            <input type="checkbox" id="venue_manager" {...register("venueManager")} value={true}/>
-            <label htmlFor="venue_manager">I want to be a venue manager</label>
-          </div>
-          <div className={styles.message_container}>
-            {apiError && <ErrorMessage message={customError}/>}
-            {success && <SuccessMessage message={"Account created successfully! Redirecting to login"}/>}
-          </div>
-          <input className={styles.btn_submit} type="submit" value="Create Account" />
+      <div className={styles.component_container}>
+        <WelcomeTextLogin/>
+        <div className={styles.form_container}>
+          <h2 className={styles.h2}>Create Account</h2>
+          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("name")} placeholder='Name'/>
+            <p>{errors.name?.message}</p>
+            <input {...register('email')} placeholder='Email' />
+            <p>{errors.email?.message}</p>
+            <input type="password" {...register('password')} placeholder="Password"/>
+            <p>{errors.password?.message}</p>
+            <input {...register('avatar')} placeholder="Avatar"/>
+            <p>{errors.avatar?.message}</p>
+            <div className={styles.venue_manager}>
+              <input type="checkbox" id="venue_manager" {...register("venueManager")} value={true}/>
+              <label htmlFor="venue_manager">I want to be a venue manager</label>
+            </div>
+            <div className={styles.message_container}>
+              {apiError && <ErrorMessage message={customError}/>}
+              {success && <SuccessMessage message={"Account created successfully! Redirecting to login"}/>}
+            </div>
+            <input className={styles.btn_submit} type="submit" value="Create Account" />
 
-        </form>
-        <div className={styles.mid_section}>
-          <h3>Or</h3>
-          <hr/>
+          </form>
+          <div className={styles.mid_section}>
+            <h3>Or</h3>
+            <hr/>
+          </div>
+            <button className={styles.btn_submit} onClick={(()=> navigate("/login"))}>Back to login</button>
         </div>
-          <button className={styles.btn_submit} onClick={(()=> navigate("/login"))}>Back to login</button>
       </div>
     </>
 
