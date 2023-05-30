@@ -9,3 +9,5 @@
 * No of guests når man booker en venue. 
 * README.md
 * PAGE NOT FOUND (sett inn i routing)
+* PROTOTYPE LINKS!!!
+* JS DOCS!!
