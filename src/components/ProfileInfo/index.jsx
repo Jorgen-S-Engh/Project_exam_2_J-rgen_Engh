@@ -1,7 +1,7 @@
 import styles from "./ProfileInfo.module.scss";
 import profile from "../../assets/no_user.png";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useProfileData from "../ProfileData";
 import EditModal from "../Modals/EditModal";
@@ -145,8 +145,8 @@ function ProfileInfo() {
         </div>
       </div>
       <div className={styles.bookings_venues}>
-        <h3>Bookings</h3>
         <div className={styles.booking_container}>
+          <h3 className={styles.booking_headline}>Bookings</h3>
           {bookingsArray.length > 0 ? (
             bookingsArray.map((booking) => (
               <div key={booking.id} className={styles.booking_card}>
@@ -161,8 +161,8 @@ function ProfileInfo() {
             <p>No Bookings</p>
           )}
         </div>
-        {venues.length > 0 && <h3>Your Venues</h3>}
         <div className={styles.venue_container}>
+          {venues.length > 0 && <h3 className={styles.booking_headline}>Your Venues</h3>}
           {data.venueManager && venues && (
             venues.map((venue) => (
               <div
