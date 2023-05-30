@@ -28,7 +28,8 @@
 
 .heading_container{
   margin: 25px 15px;
-  overflow: scroll;
+  overflow: auto;
+  line-height: normal;  
   max-height: 300px;
 }
 
