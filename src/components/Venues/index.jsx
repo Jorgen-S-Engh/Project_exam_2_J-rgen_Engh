@@ -8,13 +8,15 @@ import parking from "../../assets/parked-car.png"
 import guests from "../../assets/group.png"
 import { Link } from 'react-router-dom';
 import Spinner from '../Spinner';
+import CatchError from '../../components/CatchError';
 
 function Venues() {
     const [venues, setVenues] = useState([]);
     const [searchWord, setSearchWord] = useState('');
     const [filteredVenues, setFilteredVenues] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [isError, setIsError] = useState(false);
+    const [customError, setCustomError] = useState("");
 
 
     useEffect(() => {
@@ -24,9 +26,12 @@ function Venues() {
                 const response = await fetch('https://api.noroff.dev/api/v1/holidaze/venues');
                 const data = await response.json();
                 setVenues(data);
-                console.log(data)
+                if (!Array.isArray(data)) {
+                    throw new Error("Error loading API");
+                }
             } catch (error) {
-                console.error('Error fetching venues:', error);
+                setIsError(true);
+                setCustomError(error.message);
             }finally{
                 setIsLoading(false)
             }
@@ -41,6 +46,11 @@ function Venues() {
             setFilteredVenues(venues.filter(venue => venue.name.toLowerCase().includes(searchWord.toLowerCase())));
         }
     }, [searchWord, venues]);
+
+    if(isError){
+        return <CatchError errorMessage={customError}/>
+    }
+    
 
     return (
         <div>
