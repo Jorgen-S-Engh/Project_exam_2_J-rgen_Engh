@@ -19,6 +19,7 @@ import NoUser from '../../components/NoUser';
 import Spinner from '../../components/Spinner';
 import ErrorMessage from '../../components/ErrorMessage';
 import SuccessMessage from '../../components/SuccessMessage';
+import CatchError from '../../components/CatchError';
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -74,6 +75,8 @@ function SingleVenue() {
 
       } catch (error) {
         console.log(error);
+        setIsError(true);
+        setCustomError(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -155,7 +158,8 @@ function SingleVenue() {
         }]);
       }
     } catch (error) {
-      console.error(error);
+      setIsError(true);
+      setCustomError(error.message);
     }
   };
   
@@ -169,7 +173,7 @@ function SingleVenue() {
   }
 
   if (isError) {
-    return <h1>Something went wrong, please try again</h1>;
+    return <CatchError errorMessage={customError}/>
   }
 
   const settings = {

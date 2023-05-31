@@ -1,0 +1,13 @@
+@import "../../index.scss";
+
+
+.btn_to_home{
+  @include btn-styles;
+}
+
+.Catch_error{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}

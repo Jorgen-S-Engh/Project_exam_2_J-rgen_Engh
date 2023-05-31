@@ -11,3 +11,8 @@
 * PAGE NOT FOUND (sett inn i routing)
 * PROTOTYPE LINKS!!!
 * JS DOCS!!
+
+* For i morgen:
+  * Flere cypress tester
+  * required på fields
+  * Prototype design
