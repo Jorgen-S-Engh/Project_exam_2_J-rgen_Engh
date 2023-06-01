@@ -7,7 +7,6 @@
 
 * For i morgen:
   * PAGE NOT FOUND (sett inn i routing)
-  * Flere cypress tester
   * required på fields
   * Prototype design
   * Bedre merka nav arrow for carousel

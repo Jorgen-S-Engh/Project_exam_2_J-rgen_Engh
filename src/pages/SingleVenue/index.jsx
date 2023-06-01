@@ -43,6 +43,34 @@ function PrevArrow(props) {
   );
 }
 
+/**
+ * SingleVenue is a stateful React Component that fetches and displays detailed information about a particular venue. 
+ * The venue's details are fetched from an API using its id, which is acquired from the URL parameters using the useParams hook from react-router-dom.
+ *
+ * The component renders a carousel of images, description, meta-information such as wifi, pets, breakfast, parking, price, rating and booking options about the venue. 
+ * The carousel of images uses the react-slick library for a smooth transition of images.
+ *
+ * It also features a FullCalendar that displays the booked dates for that venue.
+ * Users can select a start date and an end date to book the venue, and these dates are then added to the FullCalendar.
+ * Before a booking is made, the selected dates are checked for availability.
+ * 
+ * The venue booking can only be made if a user is authenticated. If a user is not authenticated, they will be prompted to log in first.
+ * 
+ * If there's an API error or success message, these are displayed to the user with the ErrorMessage and SuccessMessage components.
+ * 
+ * This component uses hooks from React for managing state and side effects:
+ * - useState for local state management,
+ * - useEffect for performing side effects such as data fetching,
+ * - useParams to get the venue id from the URL.
+ *
+ * @component
+ * @example
+ * 
+ * return (
+ *   <SingleVenue />
+ * )
+ */
+
 function SingleVenue() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

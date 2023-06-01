@@ -4,6 +4,33 @@ import ModalForm from "../ModalForm";
 import ErrorMessage from "../../ErrorMessage";
 import SuccessMessage from "../../SuccessMessage";
 
+
+/**
+ * EditModal is a React component that presents a modal for editing venue information.
+ * 
+ * The modal fetches the current venue data from the API when the component mounts,
+ * and provides a form for updating the venue's information. The form's submit handler
+ * sends a PUT request to the API with the updated data. 
+ *
+ * The visibility of the modal can be controlled externally through the `show` prop and can be closed
+ * by calling the `onClose` function.
+ * 
+ * If the API request is successful, a success message is displayed and the page is reloaded 
+ * after 2.5 seconds. If an error occurs, an error message is displayed.
+ *
+ * @component
+ * 
+ * @param {Object} props - Component props
+ * @param {boolean} props.show - Determines whether the modal is visible or not
+ * @param {Function} props.onClose - Function to close the modal
+ * @param {string} props.venueId - The ID of the venue to edit
+ * 
+ * @example
+ * return (
+ *   <EditModal show={modalVisible} onClose={closeModal} venueId={"1234"} />
+ * )
+ */
+
 const EditModal = ({ show, onClose, venueId }) => {
   const [venueData, setVenueData] = useState(null);
   const [customError, setCustomError] = useState("");

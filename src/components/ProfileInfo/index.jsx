@@ -10,6 +10,26 @@ import ChangeAvatarModal from "../Modals/ChangeAvatarModal";
 import Spinner from "../Spinner";
 
 
+/**
+ * ProfileInfo is a React Component responsible for displaying user's profile information.
+ *
+ * It manages the state of the user's profile data and provides interfaces for editing
+ * profile details such as avatar and associated venues. It also shows the bookings made by
+ * the user and the ability to manage the venues if the user is a venue manager.
+ *
+ * It fetches the user's profile data using a custom hook `useProfileData` and retrieves
+ * the profile state from the Redux store using `useSelector`.
+ *
+ * This component also includes the functionality of logging out the user by clearing
+ * the localStorage and navigating to the login page.
+ *
+ * If the status of the request to fetch profile data is 'loading', it renders a spinner
+ * component. If the status is 'failed', it renders an error message.
+ *
+ * @component
+ * @example
+ * <ProfileInfo />
+ */
 function ProfileInfo() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showNewModal, setShowNewModal] = useState(false);

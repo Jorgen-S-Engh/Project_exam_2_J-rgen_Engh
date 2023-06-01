@@ -2,7 +2,7 @@
 
 ## Description
 
-Project exam for the final semester. The assigment was to create a site for the fictitious accommodation booking site called Holidaze. I buildt the frontend based on an API that was provided. You can find the api [here](https://docs.noroff.dev/holidaze/authentication)
+This is my final project exam for the two year degree in frontend-development at Noroff school of vocational. The assigment was to create a site for the fictitious accommodation booking site called Holidaze. I buildt the frontend based on an API that was provided. You can find the api documentation [here](https://docs.noroff.dev/holidaze/authentication)
 
 The site was to be created with the following user stories:
 
@@ -44,15 +44,23 @@ git clone https://github.com/Jorgen-S-Engh/Project_exam_2_J-rgen_Engh.git
 * npm install
 * npm run build
 
-For testing:
-
+## Testing
+### E2E test
+```bash
+ npm run test:e2e
+```
+### Unit test
+```bash
+ npm test
+```
 
 ## Contact
 
 [My LinkedIn page](https://www.linkedin.com/in/j%C3%B8rgen-wiksaas-engh-902669100/)
 
+
 ## Known issues
-* 
+* Although the individual unit tests functioned as expected, I encountered difficulties ensuring the correct configuration for their execution. The issue appears to not be rooted in the tests themselves, but rather in the setup and configuration aspects. No problems where detected for the e2e-tests. 
 
 ## Future improvments
 * The design for desktop interfaces in this project could benefit from further enhancements. This project was primarily developed with a mobile-first approach, which, while ensuring an optimized mobile experience, may have inadvertently impacted the desktop design aesthetics. I acknowledge there's room for improvement in this area for a more balanced user experience across all platforms.

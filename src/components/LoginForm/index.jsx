@@ -27,6 +27,26 @@ const schema =yup
 }).required();
 
 
+/**
+ * LoginForm is a React component that presents a form for user login.
+ * 
+ * This component handles user authentication with an API by sending a POST request with the 
+ * user's email and password. It also leverages react-hook-form for form validation using the yupResolver.
+ * 
+ * On successful login, user details and access token are stored in localStorage and the user is redirected to 
+ * the home page. On failure, an error message is displayed to the user.
+ * 
+ * The form also provides options for navigating to account creation or proceeding without user authentication.
+ *
+ * @component
+ * 
+ * @example
+ * return (
+ *   <LoginForm />
+ * )
+ */
+
+
 function LoginForm() {
   const navigate = useNavigate();
   const [customError, setCustomError] = useState('');

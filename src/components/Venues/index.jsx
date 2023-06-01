@@ -10,6 +10,27 @@ import { Link } from 'react-router-dom';
 import Spinner from '../Spinner';
 import CatchError from '../../components/CatchError';
 
+/**
+ * Venues is a React Component that fetches and displays a list of venues.
+ *
+ * The component retrieves venue data from the API 'https://api.noroff.dev/api/v1/holidaze/venues' and 
+ * stores the response in the `venues` state. It also provides a search input field to filter the venues.
+ * 
+ * This component handles its own loading state via the `isLoading` state. During the API request, it sets
+ * `isLoading` to true and displays a loading spinner. Once the API request completes, it sets `isLoading` to false.
+ * 
+ * This component also handles error states via the `isError` and `customError` states. If the API request fails,
+ * it sets `isError` to true and displays an error message through `customError`.
+ * 
+ * The returned JSX renders a search input and a list of venue cards. Each venue card is a Link that redirects to the 
+ * detailed view of the venue on click.
+ * 
+ * The component uses SCSS modules for styling, with styles imported from 'Venues.module.scss'.
+ *
+ * @component
+ * @example
+ * <Venues />
+ */
 function Venues() {
     const [venues, setVenues] = useState([]);
     const [searchWord, setSearchWord] = useState('');

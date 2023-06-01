@@ -3,6 +3,29 @@ import styles from "../Modal.module.scss";
 import ErrorMessage from "../../ErrorMessage";
 import SuccessMessage from "../../SuccessMessage";
 
+/**
+ * ChangeAvatarModal is a React component that presents a modal form for changing the user's avatar.
+ * 
+ * This component accepts the current avatar's URL as an input and attempts to change the avatar 
+ * by making a call to the passed in `onAvatarChange` function. If the function returns a success, 
+ * a success message is displayed and the modal automatically closes after 5 seconds. If an error occurs, 
+ * the error message is displayed instead.
+ * 
+ * The visibility of the modal can be controlled externally through the `show` prop and can be closed
+ * by calling the `onClose` function.
+ * 
+ * @component
+ * 
+ * @param {Object} props - Component props
+ * @param {boolean} props.show - Determines whether the modal is visible or not
+ * @param {Function} props.onClose - Function to close the modal
+ * @param {Function} props.onAvatarChange - Function to handle avatar change. It should return an object with a `success` boolean and `error` message
+ * 
+ * @example
+ * return (
+ *   <ChangeAvatarModal show={modalVisible} onClose={closeModal} onAvatarChange={changeAvatar} />
+ * )
+ */
 
 const ChangeAvatarModal = ({ show, onClose, onAvatarChange }) => {
   const [newAvatarUrl, setNewAvatarUrl] = useState("");

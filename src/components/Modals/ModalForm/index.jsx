@@ -30,6 +30,36 @@ const schema = yup
     .array(),
 });
 
+
+/**
+ * ModalForm is a React component that provides a form for creating or updating a venue's information.
+ * 
+ * This form uses the 'react-hook-form' and 'yup' libraries to manage form state and validation.
+ * The form includes inputs for a venue's name, price, maximum guests, media URLs, rating, description, 
+ * country, city, and checkboxes for including WiFi, parking, pets, and breakfast.
+ * 
+ * The form allows for adding additional media inputs dynamically, to add multiple images for a venue.
+ * 
+ * The component also provides an option to delete the venue by making a DELETE request to the API.
+ *
+ * @component
+ * 
+ * @param {Object} props - Component props
+ * @param {Function} props.onSubmit - Function to handle the form submission. This function should accept 
+ *                                    an object representing the form data.
+ * @param {boolean} [props.location=false] - Flag to indicate whether to include the country and city 
+ *                                           inputs in the form.
+ * @param {boolean} [props.onDeleteVenue=false] - Flag to indicate whether to include a button for 
+ *                                                deleting the venue in the form.
+ * @param {string} [props.venueId=null] - The ID of the venue to delete. This is used in the DELETE 
+ *                                        request to the API.
+ * 
+ * @example
+ * return (
+ *   <ModalForm onSubmit={handleFormSubmit} location={true} onDeleteVenue={true} venueId={"1234"} />
+ * )
+*/
+
 function ModalForm({ onSubmit, location, onDeleteVenue, venueId }) {
   const [customError, setCustomError] = useState("");
   const [apiError, setApiError] =useState(false)

@@ -4,6 +4,21 @@ import logo from "../../../assets/logo.png";
 import profile from "../../../assets/no_user.png";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Header component that includes a logo and a profile picture. 
+ * Clicking on the logo navigates to the home page ("/").
+ * Clicking on the profile picture navigates to the profile page ("/profile").
+ *
+ * @component
+ *
+ * @returns {JSX.Element} The Header component.
+ *
+ * @example
+ * return (
+ *   <Header />
+ * )
+ */
+
 function Header() {
   const navigate = useNavigate();
   const [avatarImg, setAvatarImg] = useState(localStorage.getItem("avatar"));

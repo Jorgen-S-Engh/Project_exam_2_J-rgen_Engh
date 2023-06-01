@@ -4,7 +4,23 @@ import logo from "../../assets/logo.png"
 import LoginForm from '../../components/LoginForm';
 
 
-
+/**
+ * WelcomeTextLogin is a stateless React Component used for displaying a welcome message on the login page.
+ * 
+ * The component includes a logo image and a welcome text, structured in a flex container for layout purposes. 
+ * 
+ * The logo image is imported from the assets folder and rendered using an img tag. The alt text provided for the image 
+ * is 'Logo for Holidaze'. The headline and paragraph texts provide information about the Holidaze service.
+ * 
+ * The component uses SCSS modules for styling, with styles imported from 'Login.module.scss'.
+ *
+ * @component
+ * @example
+ * 
+ * return (
+ *   <WelcomeTextLogin />
+ * )
+ */
 
 function WelcomeTextLogin() {
   return (

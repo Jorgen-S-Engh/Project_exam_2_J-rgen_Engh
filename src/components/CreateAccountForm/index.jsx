@@ -35,6 +35,16 @@ const schema = yup
 
 }).required();
 
+/**
+ * Form component for creating a new account.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <CreateAccountForm />
+ * )
+*/
 
 function CreateAccountForm() {
 
