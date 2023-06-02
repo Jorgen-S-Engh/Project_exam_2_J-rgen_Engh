@@ -1,21 +1,20 @@
 @import "../../../index.scss";
 
-.meta_checkbox{
-  display:flex;
+.meta_checkbox {
+  display: flex;
   flex-wrap: wrap;
-  max-width:400px;
-
+  max-width: 400px;
 }
 
-.meta_item{
+.meta_item {
   width: 140px;
   font-size: 0.8rem;
-  *{
-    margin:5px;
+  * {
+    margin: 5px;
   }
 }
 
-.text_area{
+.text_area {
   height: 100px;
   max-width: 100%;
   padding: 0.75rem 1rem;
@@ -29,7 +28,7 @@
   max-height: 50px;
 }
 
-.media_container{
+.media_container {
   max-height: 120px;
   overflow: auto;
 }
@@ -40,47 +39,42 @@
   font-size: 0.8rem;
   font-weight: bold;
   max-width: 180px;
-  
 }
 
-.btn_container{
+.btn_container {
   margin-bottom: 20px;
 }
 
-.btn_submit, .btn_delete_venue{
+.btn_submit,
+.btn_delete_venue {
   @include btn-styles;
   max-width: 130px;
-  margin:5px;
+  margin: 5px;
 }
 
-.btn_delete_venue{
+.btn_delete_venue {
   background-color: var(--main-color-green-danger);
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
-  &:hover{
-    background-color:var(--main-color-green-danger-hover);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    color 0.15s ease-in-out;
+  &:hover {
+    background-color: var(--main-color-green-danger-hover);
   }
 }
 
-.form{
-  display:flex;
+.form {
+  display: flex;
   flex-direction: column;
-  max-width:500px;
+  max-width: 500px;
   overflow: auto;
 }
 
-.message_container{
+.message_container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.error_message{
-  color:red;
+.error_message {
+  color: red;
 }
-
-
-
-
-
-

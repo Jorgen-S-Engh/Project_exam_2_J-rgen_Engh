@@ -1,7 +1,6 @@
-
 @import "../../index.scss";
 
-.no_user_container{
+.no_user_container {
   margin: 30px 0px;
   display: flex;
   justify-content: center;
@@ -9,6 +8,6 @@
   flex-direction: column;
 }
 
-.btn_to_login{
-  @include btn-styles
+.btn_to_login {
+  @include btn-styles;
 }

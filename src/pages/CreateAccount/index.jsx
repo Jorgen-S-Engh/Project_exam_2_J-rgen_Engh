@@ -1,18 +1,12 @@
-import React from 'react'
-import CreateAccountForm from '../../components/CreateAccountForm';
-
-
-
+import React from "react";
+import CreateAccountForm from "../../components/CreateAccountForm";
 
 function CreateAccount() {
   return (
     <>
-
-      <CreateAccountForm/>
-    
+      <CreateAccountForm />
     </>
-  
-  )
+  );
 }
 
-export default CreateAccount
+export default CreateAccount;

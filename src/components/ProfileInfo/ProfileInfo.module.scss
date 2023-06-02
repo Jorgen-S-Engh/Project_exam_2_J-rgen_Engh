@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
-.profile_info{
-  display:flex;
+.profile_info {
+  display: flex;
   width: 85%;
   height: 270px;
   margin: 20px auto;
@@ -11,8 +11,8 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.image_column{
-  display:flex;
+.image_column {
+  display: flex;
   flex-direction: column;
   width: 50%;
 }
@@ -20,7 +20,7 @@
 .image_container {
   width: 100px;
   height: 100px;
-  display:flex;
+  display: flex;
   justify-content: center;
   margin: 10px 10px;
 }
@@ -29,87 +29,88 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border:solid white 1px;
+  border: solid white 1px;
   border-radius: 50%;
   transition: border-color 0.3s ease;
 }
 
-.btn_container{
-  display:flex;
+.btn_container {
+  display: flex;
   flex-direction: column;
-
 }
 
-.btn{
+.btn {
   margin: 5px;
   background-color: var(--main-color-green);
   border: solid 1px transparent;
-  color:var(--text-color-white);
-  cursor:pointer;
+  color: var(--text-color-white);
+  cursor: pointer;
   border-radius: 10px;
   padding: 5px;
   font-weight: bold;
   text-shadow: 1px 1px 1px rgb(147, 147, 147);
-  transition: background-color 0.30s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 
-
-  &:hover{
+  &:hover {
     background-color: var(--main-color-green-hover);
   }
 }
 
-.btn_log_out{
+.btn_log_out {
   background-color: var(--main-color-green-danger);
-  &:hover{
+  &:hover {
     background-color: #003a3a;
   }
 }
 
-.info_column{
-  display:flex;
+.info_column {
+  display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   max-width: 50%;
 }
 
-h1{
+h1 {
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
   font-size: 1rem;
 }
 
-h2{
+h2 {
   font-weight: 100;
-
 }
 
-.venue_media{
+.venue_media {
   width: 300px;
 }
 
-.venue_media__img{
+.venue_media__img {
   width: 100%;
   object-fit: contain;
 }
 
-p{
-  color:black;
+p {
+  color: black;
 }
 
-.booking_container, .venue_container{
-  display:flex;
+.booking_container,
+.venue_container {
+  display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.booking_card, .venue_card{
-  display:flex;
+.booking_card,
+.venue_card {
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
@@ -119,64 +120,57 @@ p{
   border-radius: 10px;
   background-color: var(--background-color-white);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  
 }
 
-.venue_card{
+.venue_card {
   cursor: pointer;
 }
 
-.booking_image, .venue_image{
+.booking_image,
+.venue_image {
   width: 100%;
   object-fit: contain;
   border-radius: 10px;
 }
 
-.btn_edit_venue{
+.btn_edit_venue {
   @include btn-styles;
   max-width: 140px;
   font-size: 0.7rem;
   padding: 5px;
-  margin:10px;
+  margin: 10px;
   font-weight: bold;
 }
 
-.description_container{
+.description_container {
   max-height: 300px;
   overflow: auto;
 }
 
-.bookings_venues{
-  display:flex;
+.bookings_venues {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-@media only screen and (min-width: 600px){
-
-  .bookings_venues{
+@media only screen and (min-width: 600px) {
+  .bookings_venues {
     flex-direction: row;
     align-items: start;
     justify-content: center;
   }
 
-  button{
+  button {
     max-width: 230px;
   }
 
-  .image_column{
+  .image_column {
     flex-direction: row;
   }
 
-  .profile_info{
+  .profile_info {
     justify-content: center;
     align-items: center;
     max-width: 675px;
   }
-
-
-
-
-
-
 }

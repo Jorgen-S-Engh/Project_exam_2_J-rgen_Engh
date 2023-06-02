@@ -11,42 +11,43 @@ const NewModal = ({ show, onClose }) => {
   }
 
   const [customError, setCustomError] = useState("");
-  const [apiError, setApiError] =useState(false)
+  const [apiError, setApiError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        
-        
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/holidaze/venues`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+
+          body: JSON.stringify(formData),
+        }
+      );
       const json = await response.json();
-      console.log(response)
-      console.log(formData)
-  
+      console.log(response);
+      console.log(formData);
+
       const handleSuccess = () => {
         setSuccess(true);
-        console.log("yeeh success")
+        console.log("yeeh success");
         setTimeout(() => {
           location.reload();
-        }, 2500); 
+        }, 2500);
       };
-      
-      if(response.ok){
-        handleSuccess()
+
+      if (response.ok) {
+        handleSuccess();
         setSuccess(true);
-      }else{
-        setCustomError(json.errors[0].message)
+      } else {
+        setCustomError(json.errors[0].message);
         setApiError(true);
         throw new Error(`Error updating venue: ${response.statusText}`);
       }
-
     } catch (error) {
       console.error("Error creating venue:", error);
     }
@@ -64,11 +65,10 @@ const NewModal = ({ show, onClose }) => {
           </div>
           <ModalForm onSubmit={handleSubmit} location={true} />
         </div>
-            {apiError && <ErrorMessage message={customError}/>}
-            {success && <SuccessMessage message={"Venue Successfully Created!"}/>}
+        {apiError && <ErrorMessage message={customError} />}
+        {success && <SuccessMessage message={"Venue Successfully Created!"} />}
       </div>
     </div>
-
   );
 };
 

@@ -12,8 +12,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
-  overflow: auto
-
+  overflow: auto;
 }
 .modal_content {
   display: flex;
@@ -40,46 +39,39 @@
   flex-grow: 1;
 }
 
-.headline_container{
+.headline_container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.h1{
+.h1 {
   color: var(--main-color-green);
 }
-.h2{
+.h2 {
   font-weight: bold;
 }
-.location_container{
-  display:flex;
+.location_container {
+  display: flex;
   flex-wrap: wrap;
 }
 
-.booking_card{
-  display:flex;
+.booking_card {
+  display: flex;
   flex-direction: column;
   border: solid 2px var(--main-color-green);
   border-radius: 15px;
   max-width: 80%;
   padding: 10px;
   margin-bottom: 20px;
-
 }
 
-.change_avatar_form{
-  display:flex;
+.change_avatar_form {
+  display: flex;
   flex-direction: column;
 }
 
-.btn_submit{
+.btn_submit {
   @include btn-styles;
   margin-bottom: 10px;
-  
 }
-
-
-
-
-

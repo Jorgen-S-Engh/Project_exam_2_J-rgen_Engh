@@ -1,14 +1,13 @@
-import React from 'react'
+import React from "react";
 import styles from "./ErrorMessage.module.scss";
 
-
 /**
- * Component for displaying error messages. 
+ * Component for displaying error messages.
  *
  * @component
  * @param {Object} props - The props that were defined by the caller of this component.
  * @param {string} props.message - The error message to display.
- * 
+ *
  * @returns {JSX.Element} The ErrorMessage component.
  *
  * @example
@@ -17,10 +16,12 @@ import styles from "./ErrorMessage.module.scss";
  * )
  */
 
-function ErrorMessage({message}) {
+function ErrorMessage({ message }) {
   return (
-    <div className={styles.error_message}>The following Error occured: {message}</div>
-  )
+    <div className={styles.error_message}>
+      The following Error occured: {message}
+    </div>
+  );
 }
 
 export default ErrorMessage;
