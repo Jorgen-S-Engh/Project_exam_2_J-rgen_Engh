@@ -3,6 +3,7 @@ import styles from "../Header.module.scss";
 import logo from "../../../assets/logo.png";
 import profile from "../../../assets/no_user.png";
 import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 /**
  * Header component that includes a logo and a profile picture.
@@ -29,6 +30,10 @@ function Header() {
         <img src={logo} alt="Logo" onClick={() => navigate("/")} />
       </div>
       <div className={styles.profile}>
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
         <img
           className={styles.profile_img}
           src={avatarImg ? avatarImg : profile}
