@@ -22,9 +22,7 @@ function Header() {
             onClick={() => navigate("/profile")}
             alt="profile-img"
           />
-          <AvatarFallback src="https://github.com/shadcn.png">
-            CN
-          </AvatarFallback>
+          <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
     </div>

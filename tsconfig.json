@@ -4,7 +4,15 @@
       "paths": {
         "@/*": ["./src/*"],
         "@/components/*": ["./src/components/*"]
-      }
+      },
+      "jsx": "react-jsx",  // Legger til støtte for JSX
+      "target": "ESNext",   // Angir målet for JavaScript-versjon
+      "module": "ESNext",   // Angir modulstandarden
+      "moduleResolution": "Node",  // Bruker Node-moduloppløsning
+      "strict": true,       // Slår på strenge regler for TypeScript
+      "esModuleInterop": true,  // Sørger for bedre kompatibilitet med CommonJS
+      "skipLibCheck": true,  // Hopper over typekontroll på bibliotekfiler
+      "forceConsistentCasingInFileNames": true  // Sørger for konsistent filnavnbruk
     },
     "include": ["src"]
   }
