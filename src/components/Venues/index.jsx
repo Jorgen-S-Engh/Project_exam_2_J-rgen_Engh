@@ -9,6 +9,7 @@ import guests from "../../assets/group.png";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import CatchError from "../../components/CatchError";
+import { Input } from "@/components/ui/input";
 
 /**
  * Venues is a React Component that fetches and displays a list of venues.
@@ -79,9 +80,9 @@ function Venues() {
 
   return (
     <div>
-      <div className={styles.search_container}>
-        <input
-          className={styles.search_field}
+      <div className="my-5 flex justify-center">
+        <Input
+          className="w-1/2"
           type="text"
           placeholder="Search"
           value={searchWord}

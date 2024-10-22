@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "../Header.module.scss";
 import logo from "../../../assets/logo.png";
-import profile from "../../../assets/no_user.png";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
