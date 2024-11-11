@@ -9,7 +9,7 @@ function Home() {
     <div>
       <Header />
       <VenuesV2 />
-      <Venues />
+      {/* <Venues /> */}
     </div>
   );
 }

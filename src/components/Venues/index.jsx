@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Venues.module.scss";
-import homeImg from "../../assets/home.png";
 import breakfast from "../../assets/breakfast.png";
 import pets from "../../assets/pawprint.png";
 import wifi from "../../assets/wifi.png";

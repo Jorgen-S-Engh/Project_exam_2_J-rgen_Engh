@@ -103,9 +103,8 @@ function SingleVenue() {
 
         const response = await fetch(url);
         const json = await response.json();
-        console.log(json);
 
-        setData(json);
+        setData(json.data);
         setEvents(
           json.bookings.map((booking) => ({
             title: "Booked",
@@ -115,7 +114,6 @@ function SingleVenue() {
           }))
         );
       } catch (error) {
-        console.log(error);
         setIsError(true);
         setCustomError(error.message);
       } finally {
@@ -124,9 +122,10 @@ function SingleVenue() {
     }
 
     getData(
-      `https://api.noroff.dev/api/v1/holidaze/venues/${id}?_bookings=true`
+      `https://v2.api.noroff.dev/holidaze/venues/${id}?_owner=true&_bookings=true`
     );
   }, [id]);
+  console.log(data);
 
   const checkAvailability = (start, end) => {
     const startDateISO = formatISO(start, { representation: "date" });
@@ -242,7 +241,8 @@ function SingleVenue() {
 
   return (
     <>
-      <Header />
+      <h1>{data.title}</h1>
+      {/* <Header />
       <div className={styles.component_container}>
         <div className={styles.first_row}>
           <div className={styles.image_container}>
@@ -325,7 +325,7 @@ function SingleVenue() {
             <NoUser message={"book venue"} />
           )}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -1,19 +1,18 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["./src/*"],
-        "@/components/*": ["./src/components/*"]
-      },
-      "jsx": "react-jsx",  // Legger til støtte for JSX
-      "target": "ESNext",   // Angir målet for JavaScript-versjon
-      "module": "ESNext",   // Angir modulstandarden
-      "moduleResolution": "Node",  // Bruker Node-moduloppløsning
-      "strict": true,       // Slår på strenge regler for TypeScript
-      "esModuleInterop": true,  // Sørger for bedre kompatibilitet med CommonJS
-      "skipLibCheck": true,  // Hopper over typekontroll på bibliotekfiler
-      "forceConsistentCasingInFileNames": true  // Sørger for konsistent filnavnbruk
+  "compilerOptions": {
+    "module": "ESNext", // Removed duplicate
+    "moduleResolution": "Node", // Removed duplicate, you can switch this to "Bundler" if you prefer
+    "skipLibCheck": true, // Removed duplicate
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"]
     },
-    "include": ["src"]
-  }
-  
+    "jsx": "react-jsx", // JSX support
+    "target": "ESNext", // Target JavaScript version
+    "strict": true, // Enables strict rules for TypeScript
+    "esModuleInterop": true, // Better compatibility with CommonJS
+    "forceConsistentCasingInFileNames": true // Ensures consistent file naming
+  },
+  "include": ["src"]
+}

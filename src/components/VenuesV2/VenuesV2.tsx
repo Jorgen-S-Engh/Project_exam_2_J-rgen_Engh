@@ -18,8 +18,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Wifi } from "lucide-react";
-import { AspectRatio } from "../ui/aspect-ratio";
+import { Wifi, PawPrint, Utensils, CircleParking } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type VenueData = {
   id: string;
@@ -57,6 +57,8 @@ const baseUrl = "https://v2.api.noroff.dev/";
 export default function VenuesV2(): JSX.Element {
   const [venueData, setVenueData] = useState<VenueData[]>([]);
   const [search, setSearch] = useState("");
+  const [searchFilter, setSearchFilter] = useState([]);
+  const [finalData, setFinalData] = useState(venueData);
 
   useEffect(() => {
     async function fetchData() {
@@ -65,23 +67,28 @@ export default function VenuesV2(): JSX.Element {
     }
     fetchData();
   }, []);
-  console.log(search);
 
-  function filteredSearch() {
-    const searchResults = venueData.filter((words) => {
+  const sortByNewest = () => {
+    const results = [...venueData].sort(
+      (a, b) => new Date(a.created) - new Date(b.created)
+    );
+    return results;
+  };
+
+  const aTB = 0;
+  console.log(sortByNewest());
+
+  const filteredSearch = () => {
+    const searchResults = sortByNewest().filter((words) => {
       return words.name.toLowerCase().includes(search.toLowerCase());
     });
-
     return searchResults;
-  }
-  const results = filteredSearch();
-  console.log(venueData);
+  };
 
   return (
     <>
       <div>
-        {/* <Input onChange={(e) => setSearch(e.target.value)}></Input> */}
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger>Open</DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>A-Z</DropdownMenuItem>
@@ -91,42 +98,58 @@ export default function VenuesV2(): JSX.Element {
             <DropdownMenuItem>Newest</DropdownMenuItem>
             <DropdownMenuItem>Oldest</DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
 
         <Search
-          placeholder="email"
+          placeholder="Search"
           onChange={(e) => setSearch(e.target.value)}
           searchWord={search}
         />
-        <div className="flex flex-wrap">
-          {results.map((venue) => (
-            <Card
-              key={venue.id}
-              className="w-1/2 h-[500px] flex flex-col items-center"
-            >
-              <CardHeader>
-                <CardTitle>{venue.name}</CardTitle>
-              </CardHeader>
-              <CardContent className="h-1/2 flex-grow">
-                <div className="w-full">
-                  <img
-                    src={
-                      venue.media[0] ? venue.media[0].url : "/fallbackImg.jpg"
-                    }
-                    alt="Alt text"
-                    className="h-48 w-full object-cover"
-                  />
-                </div>
-                <CardDescription className="line-clamp-2 h-1/4 my-5">
-                  {venue.description}
-                </CardDescription>
-                <div>
-                  <div className="bold">Price: {venue.price},-</div>
-                  <p>{venue.meta.wifi ? <Wifi /> : ""}</p>
-                </div>
-              </CardContent>
-              <CardFooter></CardFooter>
-            </Card>
+        <div className="flex flex-wrap gap-1 justify-center">
+          {filteredSearch().map((venue) => (
+            <Link to={`${venue.id}`} key={venue.id}>
+              <Card className="h-[500px] w-[450px] flex flex-col items-center">
+                <CardHeader>
+                  <CardTitle className="line-clamp-1">{venue.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="h-1/2">
+                  <div className="w-full">
+                    <img
+                      src={
+                        venue.media[0] ? venue.media[0].url : "/fallbackImg.jpg"
+                      }
+                      alt="Alt text"
+                      className="h-48 w-[400px] object-cover rounded"
+                      onError={(e) =>
+                        (e.currentTarget.src = "/fallbackImg.jpg")
+                      }
+                    />
+                  </div>
+
+                  <div className="line-clamp-2 my-3">
+                    {" "}
+                    <p>{venue.description}</p>
+                  </div>
+
+                  <div>
+                    <div className="font-bold">Price: {venue.price},-</div>
+                    <div className="flex gap-2">
+                      {venue.meta.wifi ? <Wifi /> : null}
+                      {venue.meta.pets ? <PawPrint /> : null}
+                      {venue.meta.breakfast ? <Utensils /> : null}
+                      {venue.meta.parking ? <CircleParking /> : null}
+                    </div>
+                  </div>
+                  {venue.media.length}
+                  <div>
+                    {venue.location.country && venue.location.city
+                      ? `${venue.location.city}, ${venue.location.country}`
+                      : "Unknown location"}
+                  </div>
+                </CardContent>
+                <CardFooter></CardFooter>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
