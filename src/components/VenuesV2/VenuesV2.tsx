@@ -21,6 +21,9 @@ import {
 import { Wifi, PawPrint, Utensils, CircleParking } from "lucide-react";
 import { Link } from "react-router-dom";
 import MetaDetails from "../MetaDetails";
+import { Rating } from "@smastrom/react-rating";
+
+import "@smastrom/react-rating/style.css";
 
 type VenueData = {
   id: string;
@@ -136,6 +139,14 @@ export default function VenuesV2(): JSX.Element {
                     {venue.location.country && venue.location.city
                       ? `${venue.location.city}, ${venue.location.country}`
                       : "Unknown location"}
+                  </div>
+
+                  <div className="mt-5">
+                    <Rating
+                      style={{ maxWidth: 100 }}
+                      value={venue.rating}
+                      readOnly={true}
+                    />
                   </div>
                 </CardContent>
                 <CardFooter></CardFooter>
