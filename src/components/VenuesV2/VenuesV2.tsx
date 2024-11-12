@@ -20,6 +20,7 @@ import {
 } from "../ui/card";
 import { Wifi, PawPrint, Utensils, CircleParking } from "lucide-react";
 import { Link } from "react-router-dom";
+import MetaDetails from "../MetaDetails";
 
 type VenueData = {
   id: string;
@@ -88,18 +89,6 @@ export default function VenuesV2(): JSX.Element {
   return (
     <>
       <div>
-        {/* <DropdownMenu>
-          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>A-Z</DropdownMenuItem>
-            <DropdownMenuItem>Z-A</DropdownMenuItem>
-            <DropdownMenuItem>Price Low to high</DropdownMenuItem>
-            <DropdownMenuItem>Price High to Low</DropdownMenuItem>
-            <DropdownMenuItem>Newest</DropdownMenuItem>
-            <DropdownMenuItem>Oldest</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu> */}
-
         <Search
           placeholder="Search"
           onChange={(e) => setSearch(e.target.value)}
@@ -133,11 +122,13 @@ export default function VenuesV2(): JSX.Element {
 
                   <div>
                     <div className="font-bold">Price: {venue.price},-</div>
-                    <div className="flex gap-2">
-                      {venue.meta.wifi ? <Wifi /> : null}
-                      {venue.meta.pets ? <PawPrint /> : null}
-                      {venue.meta.breakfast ? <Utensils /> : null}
-                      {venue.meta.parking ? <CircleParking /> : null}
+                    <div className="my-3">
+                      <MetaDetails
+                        wifi={venue.meta.wifi}
+                        pets={venue.meta.pets}
+                        breakfast={venue.meta.breakfast}
+                        parking={venue.meta.parking}
+                      />
                     </div>
                   </div>
                   {venue.media.length}
